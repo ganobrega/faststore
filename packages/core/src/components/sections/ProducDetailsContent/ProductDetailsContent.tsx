@@ -1,20 +1,16 @@
-import { useState } from 'react'
 import {
+  Accordion as UIAccordion,
+  AccordionButton as UIAccordionButton,
+  AccordionItem as UIAccordionItem,
+  AccordionPanel as UIAccordionPanel,
+  Icon as UIIcon,
   List as UIList,
   Table as UITable,
   TableBody as UITableBody,
   TableCell as UITableCell,
   TableRow as UITableRow,
-  Icon as UIIcon,
-  Accordion as UIAccordion,
-  AccordionItem as UIAccordionItem,
-  AccordionButton as UIAccordionButton,
-  AccordionPanel as UIAccordionPanel,
 } from '@faststore/ui'
-
-import Icon from 'src/components/ui/Icon'
-
-import Section from '../Section'
+import { useState } from 'react'
 
 interface ArticleLabels {
   /**
@@ -102,7 +98,7 @@ function ProductDetailsContent({
   const labels = { ...DEFAULT_LABELS, ...propLabels }
 
   return (
-    <Section data-fs-product-details-content>
+    <section data-fs-product-details-content>
       <UIAccordion
         indices={indices}
         onChange={onChange}
@@ -140,7 +136,9 @@ function ProductDetailsContent({
                   <UITableCell variant="header" align="left">
                     <UIIcon
                       data-fs-accordion-item-button-icon
-                      component={<Icon name="Ruler" width={18} height={18} />}
+                      name="Ruler"
+                      width={18}
+                      height={18}
                     />
                     <span>Width</span>
                   </UITableCell>
@@ -150,7 +148,9 @@ function ProductDetailsContent({
                   <UITableCell variant="header" align="left">
                     <UIIcon
                       data-fs-accordion-item-button-icon
-                      component={<Icon name="Ruler" width={18} height={18} />}
+                      name="Ruler"
+                      width={18}
+                      height={18}
                     />
                     Height
                   </UITableCell>
@@ -160,7 +160,9 @@ function ProductDetailsContent({
                   <UITableCell variant="header" align="left">
                     <UIIcon
                       data-fs-accordion-item-button-icon
-                      component={<Icon name="Ruler" width={18} height={18} />}
+                      name="Ruler"
+                      width={18}
+                      height={18}
                     />
                     Dimensions
                   </UITableCell>
@@ -172,7 +174,9 @@ function ProductDetailsContent({
                   <UITableCell variant="header" align="left">
                     <UIIcon
                       data-fs-accordion-item-button-icon
-                      component={<Icon name="Bag" width={18} height={18} />}
+                      name="Bag"
+                      width={18}
+                      height={18}
                     />
                     Weight
                   </UITableCell>
@@ -182,9 +186,9 @@ function ProductDetailsContent({
                   <UITableCell variant="header" align="left">
                     <UIIcon
                       data-fs-accordion-item-button-icon
-                      component={
-                        <Icon name="RocketLaunch" width={18} height={18} />
-                      }
+                      name="RocketLaunch"
+                      width={18}
+                      height={18}
                     />
                     Days to ship
                   </UITableCell>
@@ -194,9 +198,9 @@ function ProductDetailsContent({
                   <UITableCell variant="header" align="left">
                     <UIIcon
                       data-fs-accordion-item-button-icon
-                      component={
-                        <Icon name="CircleWavyCheck" width={18} height={18} />
-                      }
+                      name="CircleWavyCheck"
+                      width={18}
+                      height={18}
                     />
                     Estimated
                   </UITableCell>
@@ -269,7 +273,7 @@ function ProductDetailsContent({
           </UIAccordionPanel>
         </UIAccordionItem>
       </UIAccordion>
-    </Section>
+    </section>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react'
-import { X } from '../../assets'
+import Icon from '../../atoms/Icon'
 import IconButton, { IconButtonProps } from '../IconButton'
 
 export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
@@ -7,35 +7,35 @@ export interface ModalHeaderProps extends HTMLAttributes<HTMLDivElement> {
    * Title for header modal.
    */
   title: string
-
   /**
    * Description for header modal.
    */
   description?: string
-
   /**
    * Props for the Close Button component.
    */
-  closeButtonProps?: Partial<Omit<IconButtonProps, 'onClick'>>
-
+  closeBtnProps?: Partial<Omit<IconButtonProps, 'onClick'>>
+  /**
+   * Function called when dismiss button is clicked.
+   */
   onClose?: () => void
 }
 
 const ModalHeader = ({
   onClose,
   title,
-  closeButtonProps = {},
+  closeBtnProps = {},
   description,
 }: ModalHeaderProps) => {
   return (
     <header data-fs-modal-header>
       {onClose && (
         <IconButton
-          onClick={() => onClose?.()}
           data-fs-modal-header-close-button
-          icon={<X />}
           aria-label="Close modal"
-          {...closeButtonProps}
+          icon={<Icon name="X" />}
+          onClick={() => onClose?.()}
+          {...closeBtnProps}
         />
       )}
       <p data-fs-modal-header-title>{title}</p>

@@ -1,10 +1,11 @@
 {
-  "index": "Introduction",
-  "-- CMS --": {
-    "type": "separator",
-    "title": "CMS"
+  "index": {
+    "title": "Introduction",
+    "theme": {
+      "layout": "full"
+    }
   },
-  "vtex-headless-cms": "VTEX Headless CMS",
+  "getting-started": "Getting Started",
   "-- Theming --": {
     "type": "separator",
     "title": "Theming"
@@ -28,8 +29,10 @@
     }
   },
   "global-tokens": "Global Tokens",
-  "-- Media --": {
+  "icons": "Icons",
+  "-- How To Guides --": {
     "type": "separator",
-    "title": "Media"
-  }
+    "title": "How To Guides"
+  },
+  "component-customization": "Component Customization"
 }

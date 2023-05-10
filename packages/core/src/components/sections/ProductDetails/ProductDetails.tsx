@@ -1,19 +1,20 @@
 import { gql } from '@faststore/graphql-utils'
 import type { CurrencyCode, ViewItemEvent } from '@faststore/sdk'
 import { sendAnalyticsEvent } from '@faststore/sdk'
-import { useEffect, useState } from 'react'
 import {
   BuyButton as UIBuyButton,
-  DiscountBadge as UIDiscountBadge,
   QuantitySelector as UIQuantitySelector,
   ProductTitle as UIProductTitle,
-  Price as UIPrice,
 } from '@faststore/ui'
+import { useEffect, useState } from 'react'
+
+import { Components } from './Overrides'
+const { Price, DiscountBadge } = Components
 
 import type { ProductDetailsFragment_ProductFragment } from '@generated/graphql'
 import OutOfStock from 'src/components/product/OutOfStock'
 import Breadcrumb from 'src/components/ui/Breadcrumb'
-import { ImageGallery } from 'src/components/ui/ImageGallery'
+import ImageGallery from 'src/components/ui/ImageGallery'
 import ShippingSimulation from 'src/components/ui/ShippingSimulation'
 import Selectors from 'src/components/ui/SkuSelector'
 import type { AnalyticsItem } from 'src/sdk/analytics/types'
@@ -24,7 +25,7 @@ import { useSession } from 'src/sdk/session'
 
 import ProductDetailsContent from '../ProducDetailsContent'
 import Section from '../Section'
-import styles from './product-details.module.scss'
+import styles from './section.module.scss'
 
 interface Props {
   context: ProductDetailsFragment_ProductFragment
@@ -81,6 +82,56 @@ function ProductDetails({ context: staleProduct }: Props) {
     },
   })
 
+  const ProductDetailsSection = () => {
+    return (
+      <>
+        <section data-fs-product-details-values>
+          <div data-fs-product-details-prices>
+            <Price
+              value={listPrice}
+              formatter={useFormattedPrice}
+              testId="list-price"
+              data-value={listPrice}
+              variant="listing"
+              SRText="Original price:"
+            />
+            <Price
+              value={lowPrice}
+              formatter={useFormattedPrice}
+              testId="price"
+              data-value={lowPrice}
+              variant="spot"
+              className="text__lead"
+              SRText="Sale Price:"
+            />
+          </div>
+          <UIQuantitySelector min={1} max={10} onChange={setAddQuantity} />
+        </section>
+        {skuVariants && (
+          <Selectors
+            slugsMap={skuVariants.slugsMap}
+            availableVariations={skuVariants.availableVariations}
+            activeVariations={skuVariants.activeVariations}
+            data-fs-product-details-selectors
+          />
+        )}
+        {
+          /* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
+                  non-composited animation violation due to the button transitioning its
+                  background color when changing from its initial disabled to active state.
+                  See full explanation on commit https://git.io/JyXV5. */
+          isValidating ? (
+            <AddToCartLoadingSkeleton />
+          ) : (
+            <UIBuyButton disabled={buyDisabled} {...buyProps}>
+              Add to Cart
+            </UIBuyButton>
+          )
+        }
+      </>
+    )
+  }
+
   useEffect(() => {
     sendAnalyticsEvent<ViewItemEvent<AnalyticsItem>>({
       name: 'view_item',
@@ -116,98 +167,50 @@ function ProductDetails({ context: staleProduct }: Props) {
 
   return (
     <Section
-      className={`${styles.fsProductDetails} layout__content layout__section`}
+      className={`${styles.section} section-product-details layout__content layout__section`}
     >
-      <Breadcrumb breadcrumbList={breadcrumbs.itemListElement} />
-
-      <section data-fs-product-details-body>
-        <header data-fs-product-details-title data-fs-product-details-section>
-          <UIProductTitle
-            title={<h1>{name}</h1>}
-            label={
-              <UIDiscountBadge
-                listPrice={listPrice}
-                spotPrice={lowPrice}
-                size="big"
-              />
-            }
-            refNumber={productId}
+      <section data-fs-product-details>
+        <Breadcrumb breadcrumbList={breadcrumbs.itemListElement} />
+        <section data-fs-product-details-body>
+          <header data-fs-product-details-title data-fs-product-details-section>
+            <UIProductTitle
+              title={<h1>{name}</h1>}
+              label={
+                <DiscountBadge
+                  listPrice={listPrice}
+                  spotPrice={lowPrice}
+                  size="big"
+                />
+              }
+              refNumber={productId}
+            />
+          </header>
+          <ImageGallery
+            data-fs-product-details-gallery
+            images={productImages}
           />
-        </header>
-
-        <ImageGallery data-fs-product-details-gallery images={productImages} />
-
-        <section data-fs-product-details-info>
-          <section
-            data-fs-product-details-settings
-            data-fs-product-details-section
-          >
-            <section data-fs-product-details-values>
-              <div data-fs-product-details-prices>
-                <UIPrice
-                  value={listPrice}
-                  formatter={useFormattedPrice}
-                  testId="list-price"
-                  data-value={listPrice}
-                  variant="listing"
-                  SRText="Original price:"
-                />
-                <UIPrice
-                  value={lowPrice}
-                  formatter={useFormattedPrice}
-                  testId="price"
-                  data-value={lowPrice}
-                  variant="spot"
-                  className="text__lead"
-                  SRText="Sale Price:"
-                />
-              </div>
-              {/* <div className="prices">
-                <p className="price__old text__legend">{formattedListPrice}</p>
-                <p className="price__new">{isValidating ? '' : formattedPrice}</p>
-              </div> */}
-              <UIQuantitySelector min={1} max={10} onChange={setAddQuantity} />
+          <section data-fs-product-details-info>
+            <section
+              data-fs-product-details-settings
+              data-fs-product-details-section
+            >
+              {availability ? <ProductDetailsSection /> : <OutOfStock />}
             </section>
-            {skuVariants && (
-              <Selectors
-                slugsMap={skuVariants.slugsMap}
-                availableVariations={skuVariants.availableVariations}
-                activeVariations={skuVariants.activeVariations}
-                data-fs-product-details-selectors
-              />
-            )}
-            {/* NOTE: A loading skeleton had to be used to avoid a Lighthouse's
-                non-composited animation violation due to the button transitioning its
-                background color when changing from its initial disabled to active state.
-                See full explanation on commit https://git.io/JyXV5. */}
-            {isValidating ? (
-              <AddToCartLoadingSkeleton />
-            ) : (
-              <UIBuyButton disabled={buyDisabled} {...buyProps}>
-                Add to Cart
-              </UIBuyButton>
-            )}
-            {!availability && (
-              <OutOfStock
-                onSubmit={(email) => {
-                  console.info(email)
+            {availability && (
+              <ShippingSimulation
+                data-fs-product-details-section
+                data-fs-product-details-shipping
+                productShippingInfo={{
+                  id,
+                  quantity: addQuantity,
+                  seller: seller.identifier,
                 }}
+                formatter={useFormattedPrice}
               />
             )}
           </section>
-
-          <ShippingSimulation
-            data-fs-product-details-section
-            data-fs-product-details-shipping
-            shippingItem={{
-              id,
-              quantity: addQuantity,
-              seller: seller.identifier,
-            }}
-          />
+          <ProductDetailsContent />
         </section>
-
-        <ProductDetailsContent />
       </section>
     </Section>
   )
@@ -284,8 +287,8 @@ export const fragment = gql`
       productGroupID
       skuVariants {
         activeVariations
-        slugsMap(dominantVariantName: "Color")
-        availableVariations(dominantVariantName: "Color")
+        slugsMap
+        availableVariations
       }
     }
 

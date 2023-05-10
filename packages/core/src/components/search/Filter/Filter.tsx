@@ -1,12 +1,11 @@
 import { gql } from '@faststore/graphql-utils'
-import { setFacet, toggleFacet, useSearch } from '@faststore/sdk'
-
-import type { Filter_FacetsFragment } from '@generated/graphql'
 import { useUI } from '@faststore/ui'
-
-import Facets from './Facets'
-import FilterSlider from './FilterSlider'
+import type { Filter_FacetsFragment } from '@generated/graphql'
+import { lazy, Suspense } from 'react'
+import FilterDesktop from './FilterDesktop'
 import { useFilter } from './useFilter'
+
+const FilterSlider = lazy(() => import('./FilterSlider'))
 
 interface Props {
   /**
@@ -20,37 +19,21 @@ interface Props {
   testId?: string
 }
 
-function Filter({ facets: allFacets, testId = 'store-filter' }: Props) {
+function Filter({ facets: allFacets, testId = 'fs-filter' }: Props) {
   const filter = useFilter(allFacets)
-  const { resetInfiniteScroll, state, setState } = useSearch()
   const { filter: displayFilter } = useUI()
-  const { facets, expanded, dispatch } = filter
 
   return (
     <>
       <div className="hidden-mobile">
-        <Facets
-          facets={facets}
-          testId={`desktop-${testId}`}
-          indicesExpanded={expanded}
-          onFacetChange={(facet, type) => {
-            setState({
-              ...state,
-              selectedFacets:
-                type === 'BOOLEAN'
-                  ? toggleFacet(state.selectedFacets, facet)
-                  : setFacet(state.selectedFacets, facet, true),
-              page: 0,
-            })
-            resetInfiniteScroll(0)
-          }}
-          onAccordionChange={(index) =>
-            dispatch({ type: 'toggleExpanded', payload: index })
-          }
-        />
+        <FilterDesktop {...filter} testId={testId} title="Filters" />
       </div>
 
-      {displayFilter && <FilterSlider {...filter} testId={testId} />}
+      {displayFilter && (
+        <Suspense fallback={null}>
+          <FilterSlider {...filter} testId={testId} title="Filters" />
+        </Suspense>
+      )}
     </>
   )
 }

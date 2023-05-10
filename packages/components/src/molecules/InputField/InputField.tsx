@@ -1,9 +1,8 @@
-import React from 'react'
 import type { MutableRefObject } from 'react'
+import React from 'react'
 
-import { Input, Label, IconButton, Button } from '../../'
 import type { InputProps } from '../../'
-import { XCircle } from '../../assets'
+import { Button, Icon, IconButton, Input, Label } from '../../'
 
 type DefaultProps = {
   /**
@@ -108,9 +107,9 @@ const InputField = ({
       {shouldDisplayButton &&
         (displayClearButton || error ? (
           <IconButton
-            data-fs-button-size="small"
+            size="small"
             aria-label="Clear Field"
-            icon={<XCircle />}
+            icon={<Icon name="XCircle" />}
             onClick={() => {
               onClear?.()
               inputRef?.current?.focus()

@@ -1,68 +1,18 @@
-import { Incentive as UIIncentive, List as UIList } from '@faststore/ui'
+import UIIncentives from 'src/components/ui/Incentives/Incentives'
+import type { Incentive } from 'src/components/ui/Incentives'
 
-import Icon from 'src/components/ui/Icon'
+import Section from '../Section'
+import styles from './section.module.scss'
 
-import styles from './incentives.module.scss'
-
-interface Incentive {
-  icon: string
-  title?: string
-  firstLineText: string
-  secondLineText?: string
-}
-
-export interface IncentivesProps {
+interface Props {
   incentives: Incentive[]
-  /**
-   * Controls whether the component will be colored or not.
-   */
-  colored?: boolean
-  /**
-   * Controls the component's direction.
-   */
-  variant?: 'horizontal' | 'vertical'
 }
 
-function Incentives({
-  incentives,
-  variant = 'horizontal',
-  colored = false,
-}: IncentivesProps) {
+function Incentives({ incentives }: Props) {
   return (
-    <div
-      data-fs-incentives
-      data-fs-incentives-colored={colored}
-      data-fs-incentives-variant={variant}
-      className={styles.fsIncentives}
-    >
-      <UIList className="layout__content">
-        {incentives.map((incentive, index) => (
-          <li key={String(index)}>
-            <UIIncentive>
-              <Icon
-                data-fs-incentive-icon
-                name={incentive.icon}
-                width={32}
-                height={32}
-              />
-              <div data-fs-incentive-content>
-                {incentive.title && (
-                  <p data-fs-incentive-title>{incentive.title}</p>
-                )}
-                <span data-fs-incentive-description>
-                  {incentive.firstLineText}
-                </span>
-                {incentive.secondLineText && (
-                  <span data-fs-incentive-description>
-                    {incentive.secondLineText}
-                  </span>
-                )}
-              </div>
-            </UIIncentive>
-          </li>
-        ))}
-      </UIList>
-    </div>
+    <Section className={`${styles.section} section-incentives`}>
+      <UIIncentives incentives={incentives} colored />
+    </Section>
   )
 }
 

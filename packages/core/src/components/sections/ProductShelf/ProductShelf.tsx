@@ -1,14 +1,20 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
-import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
-import type { ProductsQueryQueryVariables } from '@generated/graphql'
+import { ProductShelf as UIProductShelf } from '@faststore/ui'
 
-import ProductCard from '../../product/ProductCard'
+import type { ProductsQueryQueryVariables } from '@generated/graphql'
+import ProductShelfSkeleton from 'src/components/skeletons/ProductShelfSkeleton'
+import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
+import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
+import { textToKebabCase } from 'src/utils/utilities'
+
+import Carousel from '../../ui/Carousel'
 import Section from '../Section'
-import styles from './product-shelf.module.scss'
+import { Components } from './Overrides'
+const { ProductCard } = Components
+
+import styles from './section.module.scss'
 
 interface ProductShelfProps extends Partial<ProductsQueryQueryVariables> {
   title: string
@@ -20,6 +26,8 @@ function ProductShelf({
   withDivisor = false,
   ...variables
 }: ProductShelfProps) {
+  const titleId = textToKebabCase(title)
+  const id = useId()
   const viewedOnce = useRef(false)
   const { ref, inView } = useInView()
   const products = useProductsQuery(variables)
@@ -47,28 +55,35 @@ function ProductShelf({
 
   return (
     <Section
-      className={`layout__section ${withDivisor ? 'section__divisor' : ''}`}
+      className={`${styles.section} section-product-shelf layout__section ${
+        withDivisor ? 'section__divisor' : ''
+      }`}
       ref={ref}
     >
       <h2 className="text__title-section layout__content">{title}</h2>
-      <div className={styles.fsProductShelf} data-fs-product-shelf>
-        <ProductShelfSkeleton
-          aspectRatio={aspectRatio}
-          loading={products === undefined}
-        >
-          <ul data-fs-product-shelf-items className="layout__content">
+      <ProductShelfSkeleton
+        aspectRatio={aspectRatio}
+        loading={products === undefined}
+      >
+        <UIProductShelf>
+          <Carousel id={titleId || id}>
             {productEdges.map((product, idx) => (
-              <li key={`${product.node.id}`}>
-                <ProductCard
-                  product={product.node}
-                  index={idx + 1}
-                  aspectRatio={aspectRatio}
-                />
-              </li>
+              <ProductCard
+                bordered
+                key={`${product.node.id}`}
+                product={product.node}
+                index={idx + 1}
+                aspectRatio={aspectRatio}
+                imgProps={{
+                  width: 216,
+                  height: 216,
+                  sizes: '(max-width: 768px) 42vw, 30vw',
+                }}
+              />
             ))}
-          </ul>
-        </ProductShelfSkeleton>
-      </div>
+          </Carousel>
+        </UIProductShelf>
+      </ProductShelfSkeleton>
     </Section>
   )
 }

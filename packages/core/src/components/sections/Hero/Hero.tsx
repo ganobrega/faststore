@@ -1,60 +1,58 @@
-import type {
-  HeroHeadingProps as UIHeroHeadingProps,
-  HeroImageProps as UIHeroImageProps,
-  HeroProps as UIHeroProps,
-} from '@faststore/ui'
+import type { HeroProps as UIHeroProps } from '@faststore/ui'
 import {
   Hero as UIHero,
-  HeroHeading as UIHeroHeading,
+  HeroHeader as UIHeroHeader,
   HeroImage as UIHeroImage,
 } from '@faststore/ui'
-
+import { ReactNode } from 'react'
 import { Image } from 'src/components/ui/Image'
-
 import Section from '../Section'
 
-export type HeroProps = UIHeroProps &
-  UIHeroHeadingProps &
-  UIHeroImageProps & {
-    /**
-     * Specifies the image URL.
-     */
-    imageSrc: string
-    /**
-     * Alternative description of the image.
-     */
-    imageAlt: string
+import styles from './section.module.scss'
+
+export type HeroProps = {
+  title: string
+  subtitle: string
+  link?: {
+    text: string
+    url: string
   }
+  image: {
+    src: string
+    alt: string
+  }
+  variant?: UIHeroProps['variant']
+  colorVariant?: UIHeroProps['colorVariant']
+  icon?: ReactNode
+}
 
 const Hero = ({
-  icon,
   link,
   title,
   subtitle,
-  linkText,
-  imageAlt,
-  imageSrc,
+  image,
+  variant = 'primary',
+  colorVariant = 'main',
+  icon,
 }: HeroProps) => {
   return (
-    <Section>
-      <UIHero>
+    <Section className={`${styles.section} section-hero`}>
+      <UIHero colorVariant={colorVariant} variant={variant}>
         <UIHeroImage data-fs-hero-image>
           <Image
-            preload
             loading="eager"
-            fetchPriority="high"
-            src={imageSrc}
-            alt={imageAlt}
+            src={image.src}
+            alt={image.alt}
             width={360}
             height={240}
             sizes="(max-width: 768px) 70vw, 50vw"
           />
         </UIHeroImage>
-        <UIHeroHeading
+        <UIHeroHeader
           title={title}
           subtitle={subtitle}
-          link={link}
-          linkText={linkText}
+          link={link?.url}
+          linkText={link?.text}
           icon={icon}
         />
       </UIHero>

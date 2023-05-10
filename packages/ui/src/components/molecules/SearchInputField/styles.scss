@@ -1,0 +1,54 @@
+[data-fs-search-input-field] {
+  // --------------------------------------------------------
+  // Design Tokens for Search Input Field
+  // --------------------------------------------------------
+  // Default properties
+  --fs-search-input-field-height-mobile                 : var(--fs-control-tap-size);
+  --fs-search-input-field-height-desktop                : var(--fs-spacing-6);
+
+  --fs-search-input-field-transition-timing             : var(--fs-transition-timing);
+  --fs-search-input-field-transition-function           : ease;
+
+  // Button
+  --fs-search-input-field-button-min-height             : var(--fs-search-input-field-height-desktop);
+  --fs-search-input-field-button-padding-top-desktop    : var(--fs-spacing-0);
+  --fs-search-input-field-button-padding-bottom-desktop : var(--fs-search-input-field-button-padding-top-desktop);
+
+  // Input
+  --fs-search-input-field-input-padding-right           : var(--fs-spacing-7);
+  --fs-search-input-field-input-bkg-color               : var(--fs-color-body-bkg);
+
+  // --------------------------------------------------------
+  // Structural Styles
+  // --------------------------------------------------------
+
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  height: var(--fs-search-input-field-height-mobile);
+
+  @include input-focus-ring;
+
+  @include media(">=notebook") { height: var(--fs-search-input-field-height-desktop); }
+
+  [data-fs-icon-button][data-fs-button-variant] {
+    position: relative;
+    right: .125rem;
+    @include media(">=notebook") {
+      position: absolute;
+      padding-top: var(--fs-search-input-field-button-padding-top-desktop);
+      padding-bottom: var(--fs-search-input-field-button-padding-bottom-desktop);
+      min-height: var(--fs-search-input-field-button-min-height);
+      right: 0;
+    }
+  }
+
+  [data-fs-search-input-field-input] {
+    height: auto;
+    padding-right: var(--fs-search-input-field-input-padding-right);
+    background-color: var(--fs-search-input-field-input-bkg-color);
+    transition: box-shadow var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-timing), border var(--fs-search-input-field-transition-timing) var(--fs-search-input-field-transition-function);
+    @include media("<notebook") { border: 0; }
+  }
+
+}

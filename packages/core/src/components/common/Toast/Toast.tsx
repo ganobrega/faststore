@@ -1,9 +1,9 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { useEffect } from 'react'
 
+import { Toast as UIToast, useUI } from '@faststore/ui'
+import Section from 'src/components/sections/Section/Section'
 import { useCart } from 'src/sdk/cart'
-import { useUI } from '@faststore/ui'
-
-const UIToast = lazy(() => import('src/components/ui/Toast'))
+import styles from './section.module.scss'
 
 function Toast() {
   const { toasts, pushToast } = useUI()
@@ -29,9 +29,9 @@ function Toast() {
   return (
     <>
       {toasts.length > 0 && (
-        <Suspense fallback={null}>
+        <Section className={`${styles.section} section-toast`}>
           <UIToast />
-        </Suspense>
+        </Section>
       )}
     </>
   )

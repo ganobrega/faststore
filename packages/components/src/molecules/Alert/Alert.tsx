@@ -1,12 +1,9 @@
 import type { HTMLAttributes } from 'react'
-import React, { forwardRef } from 'react'
-import { useCallback } from 'react'
+import React, { forwardRef, useCallback } from 'react'
 
-import { Button, Link, Icon, LinkProps } from '../../'
+import { IconButton, Icon, Link, LinkProps } from '../../'
 
-import { X } from '../../assets'
-
-import type { ReactNode, MouseEvent } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 
 export interface AlertProps
   extends Omit<HTMLAttributes<HTMLDivElement>, 'role'> {
@@ -64,18 +61,14 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
       data-fs-alert-dismissible={dismissible}
       {...otherProps}
     >
-      {icon && <Icon component={icon} />}
+      {React.isValidElement(icon) && icon}
 
       <p data-fs-alert-content>{children}</p>
 
       {link && <Link data-fs-alert-link variant="inline" {...link} />}
 
       {dismissible && (
-        <Button data-fs-alert-button aria-label="Close" onClick={handleClose}>
-          <span>
-            <Icon component={<X />} />
-          </span>
-        </Button>
+        <IconButton data-fs-alert-button size="small" aria-label="Close" icon={<Icon name="X" />} onClick={handleClose} />
       )}
     </div>
   )

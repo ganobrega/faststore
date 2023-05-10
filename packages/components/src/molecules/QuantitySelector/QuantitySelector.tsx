@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { IconButton, Input } from '../../'
-import { Minus, Plus } from '../../assets'
+import { Icon, IconButton, Input } from '../../'
 
 export interface QuantitySelectorProps {
   /**
@@ -89,12 +88,13 @@ const QuantitySelector = ({
     >
       <IconButton
         data-quantity-selector-button="left"
-        icon={<Minus />}
+        icon={<Icon name="Minus" width={16} height={16} weight="bold" />}
         aria-label="Decrement Quantity"
         aria-controls="quantity-selector-input"
         disabled={isLeftDisabled || disabled}
         onClick={decrease}
         testId={`${testId}-left-button`}
+        size="small"
       />
       <Input
         data-quantity-selector-input
@@ -109,9 +109,10 @@ const QuantitySelector = ({
         aria-controls="quantity-selector-input"
         aria-label="Increment Quantity"
         disabled={isRightDisabled || disabled}
-        icon={<Plus />}
+        icon={<Icon name="Plus" width={16} height={16} weight="bold" />}
         onClick={increase}
         testId={`${testId}-right-button`}
+        size="small"
       />
     </div>
   )

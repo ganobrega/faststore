@@ -1,14 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
-import Tiles, { Tile } from 'src/components/ui/Tiles'
+import type { ProductsQueryQueryVariables } from '@generated/graphql'
 import ProductCard from 'src/components/product/ProductCard'
 import ProductTilesSkeleton from 'src/components/skeletons/ProductTilesSkeleton'
+import Tiles, { Tile } from 'src/components/ui/Tiles'
+import { useViewItemListEvent } from 'src/sdk/analytics/hooks/useViewItemListEvent'
 import { useProductsQuery } from 'src/sdk/product/useProductsQuery'
-import type { ProductsQueryQueryVariables } from '@generated/graphql'
 
 import Section from '../Section'
+
+import styles from './section.module.scss'
 
 interface ProductTilesProps extends Partial<ProductsQueryQueryVariables> {
   title: string
@@ -29,6 +31,26 @@ const getRatio = (products: number, idx: number) => {
   }
 
   return 3 / 4
+}
+
+const getSizes = (products: number, idx: number) => {
+  const expandsFirstTile =
+    products === NUMBER_ITEMS_TO_EXPAND_FIRST && idx === 0
+
+  const expandsFirstTwoTile =
+    products === NUMBER_ITEMS_TO_EXPAND_FIRST_TWO && (idx === 0 || idx === 1)
+
+  if (expandsFirstTile || expandsFirstTwoTile) {
+    return {
+      width: 594,
+      height: 364,
+    }
+  }
+
+  return {
+    width: 284,
+    height: 364,
+  }
 }
 
 const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
@@ -57,7 +79,10 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
   }
 
   return (
-    <Section className="layout__section layout__content" ref={ref}>
+    <Section
+      className={`${styles.section} section-product-tiles layout__section layout__content`}
+      ref={ref}
+    >
       <h2 className="text__title-section">{title}</h2>
       <div>
         <ProductTilesSkeleton loading={!products}>
@@ -70,6 +95,7 @@ const ProductTiles = ({ title, ...variables }: ProductTilesProps) => {
                   index={idx + 1}
                   variant="wide"
                   aspectRatio={getRatio(productEdges.length, idx)}
+                  imgProps={getSizes(productEdges.length, idx)}
                 />
               </Tile>
             ))}

@@ -1,77 +1,47 @@
-import { List as UIList, Badge as UIBadge } from '@faststore/ui'
-import { forwardRef } from 'react'
+import {
+  SearchTop as UISearchTop,
+  SearchTopTerm as UISearchTopTerm,
+  useSearch,
+} from '@faststore/ui'
 import type { HTMLAttributes } from 'react'
 
-import Link from 'src/components/ui/Link'
-import useSearchInput, { formatSearchPath } from 'src/sdk/search/useSearchInput'
-import useTopSearch from 'src/sdk/search/useTopSearch'
 import type { StoreSuggestionTerm } from '@generated/graphql'
-
-import styles from '../search.module.scss'
+import { formatSearchPath } from 'src/sdk/search/formatSearchPath'
+import useTopSearch from 'src/sdk/search/useTopSearch'
 
 export interface SearchTopProps extends HTMLAttributes<HTMLDivElement> {
-  /**
-   * ID to find this component in testing tools (e.g.: cypress, testing library, and jest).
-   */
-  testId?: string
   /**
    * List of top searched items
    */
   topTerms?: StoreSuggestionTerm[]
 }
 
-const SearchTop = forwardRef<HTMLDivElement, SearchTopProps>(function SearchTop(
-  { testId = 'top-search', topTerms, ...otherProps },
-  ref
-) {
-  const { onSearchInputSelection } = useSearchInput()
-  const { terms, isLoading } = useTopSearch(topTerms)
+function SearchTop({ topTerms, ...otherProps }: SearchTopProps) {
+  const {
+    values: { onSearchSelection },
+  } = useSearch()
+  const { terms } = useTopSearch(topTerms)
 
   if (terms.length === 0) {
     return null
   }
 
   return (
-    <section
-      ref={ref}
-      data-testid={testId}
-      data-fs-search-section
-      className={styles.fsSearch}
-      {...otherProps}
-    >
-      {isLoading ? (
-        <p data-fs-search-input-loading-text>Loading...</p>
-      ) : (
-        <>
-          <div data-fs-search-header>
-            <p data-fs-search-title>Top Search</p>
-          </div>
-          <UIList as="ol">
-            {terms.map((term, index) => (
-              <li key={term.value} data-fs-search-item>
-                <Link
-                  data-fs-search-item-link
-                  variant="display"
-                  href={formatSearchPath(term.value)}
-                  onClick={() =>
-                    onSearchInputSelection?.(
-                      term.value,
-                      formatSearchPath(term.value)
-                    )
-                  }
-                >
-                  <UIBadge data-fs-search-badge variant="info">
-                    {index + 1}
-                  </UIBadge>
-                  {term.value}
-                </Link>
-              </li>
-            ))}
-          </UIList>
-        </>
-      )}
-    </section>
+    <UISearchTop title="Top Search" {...otherProps}>
+      {terms.map((term, index) => (
+        <UISearchTopTerm
+          key={index}
+          value={term.value}
+          index={index}
+          linkProps={{
+            href: formatSearchPath(term.value),
+            onClick: () =>
+              onSearchSelection?.(term.value, formatSearchPath(term.value)),
+          }}
+        />
+      ))}
+    </UISearchTop>
   )
-})
+}
 
 export default SearchTop

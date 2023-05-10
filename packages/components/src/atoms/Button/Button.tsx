@@ -1,6 +1,6 @@
-import type { ReactNode, ButtonHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
-import { Icon, Loader } from '../../'
+import { Loader } from '../../'
 
 export type Variant = 'primary' | 'secondary' | 'tertiary'
 export type Size = 'small' | 'regular'
@@ -73,17 +73,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       data-testid={testId}
       {...otherProps}
     >
-      {loading && (
-        <p data-fs-button-loading-label>
-          {loadingLabel}
-          <Loader
-            variant={variant === 'primary' && !inverse ? 'light' : 'dark'}
-          />
-        </p>
-      )}
-      {icon && iconPosition === 'left' && <Icon component={icon} />}
-      <span>{children}</span>
-      {icon && iconPosition === 'right' && <Icon component={icon} />}
+      <div data-fs-button-wrapper>
+        {loading && (
+          <p data-fs-button-loading-label>
+            {loadingLabel}
+            <Loader
+              variant={variant === 'primary' && !inverse ? 'light' : 'dark'}
+            />
+          </p>
+        )}
+        {React.isValidElement(icon) && iconPosition === 'left' && <span data-fs-button-icon>{icon}</span>}
+        {children && <span>{children}</span>}
+        {React.isValidElement(icon) && iconPosition === 'right' && <span data-fs-button-icon>{icon}</span>}
+      </div>
     </button>
   )
 })

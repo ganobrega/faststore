@@ -144,6 +144,13 @@ export type IStoreCurrency = {
   symbol: Scalars['String'];
 };
 
+export type IStoreGeoCoordinates = {
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float'];
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float'];
+};
+
 /** Image input. */
 export type IStoreImage = {
   /** Alias for the input image. */
@@ -233,9 +240,11 @@ export type IStoreSession = {
   country: Scalars['String'];
   /** Session input currency. */
   currency: IStoreCurrency;
+  /** Session input geoCoordinates. */
+  geoCoordinates?: Maybe<IStoreGeoCoordinates>;
   /** Session input locale. */
   locale: Scalars['String'];
-  /** Session input postal code. */
+  /** Session input person. */
   person?: Maybe<IStorePerson>;
   /** Session input postal code. */
   postalCode?: Maybe<Scalars['String']>;
@@ -503,24 +512,28 @@ export type SkuVariants = {
    * `dominantVariantName` property. Returns all available options for the
    * dominant property, and only options that can be combined with its current
    * value for other properties.
+   * If `dominantVariantName` is not present, the first variant will be
+   * considered the dominant one.
    */
   availableVariations?: Maybe<Scalars['FormattedVariants']>;
   /**
    * Maps property value combinations to their respective SKU's slug. Enables
    * us to retrieve the slug for the SKU that matches the currently selected
    * variations in O(1) time.
+   * If `dominantVariantName` is not present, the first variant will be
+   * considered the dominant one.
    */
   slugsMap?: Maybe<Scalars['SlugsMap']>;
 };
 
 
 export type SkuVariantsAvailableVariationsArgs = {
-  dominantVariantName: Scalars['String'];
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 
 export type SkuVariantsSlugsMapArgs = {
-  dominantVariantName: Scalars['String'];
+  dominantVariantName?: Maybe<Scalars['String']>;
 };
 
 /** Aggregate offer information, for a given SKU that is available to be fulfilled by multiple sellers. */
@@ -718,6 +731,15 @@ export type StoreFacetValueRange = {
   absolute: Scalars['Float'];
   /** Search facet range selected value. */
   selected: Scalars['Float'];
+};
+
+/** Geographic coordinates information. */
+export type StoreGeoCoordinates = {
+  __typename?: 'StoreGeoCoordinates';
+  /** The latitude of the geographic coordinates. */
+  latitude: Scalars['Float'];
+  /** The longitude of the geographic coordinates. */
+  longitude: Scalars['Float'];
 };
 
 /** Image. */
@@ -949,9 +971,11 @@ export type StoreSession = {
   country: Scalars['String'];
   /** Session currency. */
   currency: StoreCurrency;
+  /** Session input geoCoordinates. */
+  geoCoordinates?: Maybe<StoreGeoCoordinates>;
   /** Session locale. */
   locale: Scalars['String'];
-  /** Session postal code. */
+  /** Session input person. */
   person?: Maybe<StorePerson>;
   /** Session postal code. */
   postalCode?: Maybe<Scalars['String']>;

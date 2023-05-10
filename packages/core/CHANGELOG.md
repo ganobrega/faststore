@@ -3,6 +3,295 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.134-alpha.0](https://github.com/vtex/faststore/compare/v2.0.133-alpha.0...v2.0.134-alpha.0) (2023-05-09)
+
+### Bug Fixes
+
+- Renames `IncentivesHeader` section to `Incentives` ([#1752](https://github.com/vtex/faststore/issues/1752)) ([c46b6b2](https://github.com/vtex/faststore/commit/c46b6b289d971ec2e7925e69e83f649b08b933bd))
+
+## [2.0.133-alpha.0](https://github.com/vtex/faststore/compare/v2.0.132-alpha.0...v2.0.133-alpha.0) (2023-05-09)
+
+### Features
+
+- Adjust `Footer` for CMS ([#1743](https://github.com/vtex/faststore/issues/1743)) ([86dd67a](https://github.com/vtex/faststore/commit/86dd67a293dcd3a67a5b96ac45dc27d097f95381))
+
+## [2.0.132-alpha.0](https://github.com/vtex/faststore/compare/v2.0.131-alpha.0...v2.0.132-alpha.0) (2023-05-09)
+
+### Bug Fixes
+
+- Lighthouse Checks 🟢 ([#1737](https://github.com/vtex/faststore/issues/1737)) ([b862703](https://github.com/vtex/faststore/commit/b862703ce991065f92765f4cecc88c9946b3d702)), closes [/github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js#L25](https://github.com/vtex//github.com/GoogleChrome/lighthouse-ci/blob/main/packages/utils/src/presets/all.js/issues/L25)
+
+## [2.0.130-alpha.0](https://github.com/vtex/faststore/compare/v2.0.129-alpha.0...v2.0.130-alpha.0) (2023-05-04)
+
+### Features
+
+- Add PLP Content-type e refacts sections to use CamelCase ([#1745](https://github.com/vtex/faststore/issues/1745)) ([00e17d5](https://github.com/vtex/faststore/commit/00e17d500c070137e7704a35adf4949dcc06f7c6))
+
+## [2.0.129-alpha.0](https://github.com/vtex/faststore/compare/v2.0.128-alpha.0...v2.0.129-alpha.0) (2023-05-04)
+
+### Features
+
+- Update content-type to globalSections ([#1744](https://github.com/vtex/faststore/issues/1744)) ([f6c5d1d](https://github.com/vtex/faststore/commit/f6c5d1df2ea093b7c1d371b91e3e828bdc7243f6))
+
+## [2.0.128-alpha.0](https://github.com/vtex/faststore/compare/v2.0.127-alpha.0...v2.0.128-alpha.0) (2023-05-04)
+
+### Features
+
+- Adds `Carousel` Component 782 ([#1735](https://github.com/vtex/faststore/issues/1735)) ([a4d5156](https://github.com/vtex/faststore/commit/a4d5156404f47ce22fe2f9b5141b446f987bccbc))
+
+## [2.0.125-alpha.0](https://github.com/vtex/faststore/compare/v2.0.124-alpha.0...v2.0.125-alpha.0) (2023-05-03)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.123-alpha.0](https://github.com/vtex/faststore/compare/v2.0.122-alpha.0...v2.0.123-alpha.0) (2023-05-02)
+
+### Documentation
+
+- Updates Icons docs + general updates ([#1739](https://github.com/vtex/faststore/issues/1739)) ([44f3521](https://github.com/vtex/faststore/commit/44f35219ba09e157aba0ea47d462f7a2ccc42b50))
+
+## [2.0.122-alpha.0](https://github.com/vtex/faststore/compare/v2.0.121-alpha.0...v2.0.122-alpha.0) (2023-04-27)
+
+### Bug Fixes
+
+- LH Unused CSS + Organizes CMS Sections and components styles. ([#1712](https://github.com/vtex/faststore/issues/1712)) ([0ab1fa8](https://github.com/vtex/faststore/commit/0ab1fa805e41a53f21cbe26dc5143f853b64dc00))
+
+## [2.0.121-alpha.0](https://github.com/vtex/faststore/compare/v2.0.120-alpha.0...v2.0.121-alpha.0) (2023-04-27)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.120-alpha.0](https://github.com/vtex/faststore/compare/v2.0.119-alpha.0...v2.0.120-alpha.0) (2023-04-27)
+
+### Features
+
+- Integrates Global Sections, with Alert component ([#1722](https://github.com/vtex/faststore/issues/1722)) ([da38b2a](https://github.com/vtex/faststore/commit/da38b2af3db5bd6abd57707d11d67d7463d5fa12))
+
+## [2.0.118-alpha.0](https://github.com/vtex/faststore/compare/v2.0.117-alpha.0...v2.0.118-alpha.0) (2023-04-26)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.117-alpha.0](https://github.com/vtex/faststore/compare/v2.0.116-alpha.0...v2.0.117-alpha.0) (2023-04-26)
+
+### Features
+
+- Adds `Navbar`, `NavbarSlider` and `NavbarLinks` components ([#1728](https://github.com/vtex/faststore/issues/1728)) ([30e3f59](https://github.com/vtex/faststore/commit/30e3f59fa75abe6d4155541615c30ccf9618be42))
+
+## [2.0.116-alpha.0](https://github.com/vtex/faststore/compare/v2.0.115-alpha.0...v2.0.116-alpha.0) (2023-04-26)
+
+### Bug Fixes
+
+- Send missing `colorVariant` attribute to `BannerText` ([#1733](https://github.com/vtex/faststore/issues/1733)) ([ddaaaf1](https://github.com/vtex/faststore/commit/ddaaaf1c3e8daa51ea07f4e419f5d2549bf73c12))
+
+## [2.0.115-alpha.0](https://github.com/vtex/faststore/compare/v2.0.114-alpha.0...v2.0.115-alpha.0) (2023-04-25)
+
+### Chores
+
+- adds shouldSplitItem as true by default ([#1725](https://github.com/vtex/faststore/issues/1725)) ([c796d72](https://github.com/vtex/faststore/commit/c796d72ab49c5eb79d305b5e4b1946b6645be0de))
+
+## [2.0.114-alpha.0](https://github.com/vtex/faststore/compare/v2.0.113-alpha.0...v2.0.114-alpha.0) (2023-04-24)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.113-alpha.0](https://github.com/vtex/faststore/compare/v2.0.112-alpha.0...v2.0.113-alpha.0) (2023-04-24)
+
+### Features
+
+- Adds `Navbar` component ([#1720](https://github.com/vtex/faststore/issues/1720)) ([58aac03](https://github.com/vtex/faststore/commit/58aac0366f3a5df042cd46ce9525e5f1af7b9a38))
+
+## [2.0.111-alpha.0](https://github.com/vtex/faststore/compare/v2.0.110-alpha.0...v2.0.111-alpha.0) (2023-04-18)
+
+### Features
+
+- Adds `ProductGrid` component ([#1719](https://github.com/vtex/faststore/issues/1719)) ([9cbe71f](https://github.com/vtex/faststore/commit/9cbe71f81395297c14b258efdd336b00f6b71071))
+
+## [2.0.110-alpha.0](https://github.com/vtex/faststore/compare/v2.0.109-alpha.0...v2.0.110-alpha.0) (2023-04-18)
+
+### Features
+
+- Add `ProductShelf` component ([#1713](https://github.com/vtex/faststore/issues/1713)) ([6a387a6](https://github.com/vtex/faststore/commit/6a387a665aa8a1eb65122abcce67d82b9ead4234))
+
+## [2.0.109-alpha.0](https://github.com/vtex/faststore/compare/v2.0.108-alpha.0...v2.0.109-alpha.0) (2023-04-18)
+
+### Features
+
+- Apply adjusts in `HeroSection` and `BannerText` section ([#1715](https://github.com/vtex/faststore/issues/1715)) ([968f95a](https://github.com/vtex/faststore/commit/968f95afb808c104a795e078f45c37ca619d4697))
+
+## [2.0.108-alpha.0](https://github.com/vtex/faststore/compare/v2.0.107-alpha.0...v2.0.108-alpha.0) (2023-04-17)
+
+### Features
+
+- Adds `EmptyState` component ([#1716](https://github.com/vtex/faststore/issues/1716)) ([82eaf9a](https://github.com/vtex/faststore/commit/82eaf9a628f417ee58d7cacb2678f8cdd81bfaec))
+
+## [2.0.107-alpha.0](https://github.com/vtex/faststore/compare/v2.0.106-alpha.0...v2.0.107-alpha.0) (2023-04-17)
+
+### Chores
+
+- Removes `Form` component ([#1717](https://github.com/vtex/faststore/issues/1717)) ([ffe1c2e](https://github.com/vtex/faststore/commit/ffe1c2ec93f261e24bf3c5a295cf359cf53bcc63))
+
+## [2.0.106-alpha.0](https://github.com/vtex/faststore/compare/v2.0.105-alpha.0...v2.0.106-alpha.0) (2023-04-12)
+
+### Features
+
+- Adds `RegionModal` component ([#1710](https://github.com/vtex/faststore/issues/1710)) ([d3b6c36](https://github.com/vtex/faststore/commit/d3b6c36af3fe3d9c826884654c8708d4a1d14d2d))
+
+## [2.0.105-alpha.0](https://github.com/vtex/faststore/compare/v2.0.104-alpha.0...v2.0.105-alpha.0) (2023-04-12)
+
+**Note:** Version bump only for package @faststore/core
+
+## 2.0.104-alpha.0 (2023-04-10)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.103-alpha.0](https://github.com/vtex/faststore/compare/v2.0.102-alpha.0...v2.0.103-alpha.0) (2023-04-06)
+
+### Features
+
+- Add `ImageGallery` components ([#1681](https://github.com/vtex/faststore/issues/1681)) ([b44101c](https://github.com/vtex/faststore/commit/b44101c932b0758f9c1b09ee001d3221c338cf93)), closes [starter.store#37](https://github.com/vtex/starter.store/issues/37)
+
+## [2.0.102-alpha.0](https://github.com/vtex/faststore/compare/v2.0.101-alpha.0...v2.0.102-alpha.0) (2023-04-06)
+
+### Features
+
+- Adds `CartSidebar` and `OrderSummary` ([#1704](https://github.com/vtex/faststore/issues/1704)) ([a16e168](https://github.com/vtex/faststore/commit/a16e1683816ef84866de4cd7f8d8a64f951b98c6))
+
+## [2.0.101-alpha.0](https://github.com/vtex/faststore/compare/v2.0.100-alpha.0...v2.0.101-alpha.0) (2023-04-05)
+
+### Bug Fixes
+
+- fix tests ([#1705](https://github.com/vtex/faststore/issues/1705)) ([8990310](https://github.com/vtex/faststore/commit/899031022bf6514797f24895ffb7c97e46726217))
+
+## [2.0.100-alpha.0](https://github.com/vtex/faststore/compare/v2.0.99-alpha.0...v2.0.100-alpha.0) (2023-04-05)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.99-alpha.0](https://github.com/vtex/faststore/compare/v2.0.98-alpha.0...v2.0.99-alpha.0) (2023-04-04)
+
+### Features
+
+- `Icon` with svg sprites ([#1682](https://github.com/vtex/faststore/issues/1682)) ([e199db7](https://github.com/vtex/faststore/commit/e199db7819ce015cc1c986c73a4a937153ddc062))
+
+## [2.0.98-alpha.0](https://github.com/vtex/faststore/compare/v2.0.97-alpha.0...v2.0.98-alpha.0) (2023-04-03)
+
+### Chores
+
+- updates api version in core package ([#1702](https://github.com/vtex/faststore/issues/1702)) ([d2bbfae](https://github.com/vtex/faststore/commit/d2bbfae551417cd6ac525fa2fe8768956254b6ec))
+
+## [2.0.97-alpha.0](https://github.com/vtex/faststore/compare/v2.0.96-alpha.0...v2.0.97-alpha.0) (2023-04-03)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.96-alpha.0](https://github.com/vtex/faststore/compare/v2.0.95-alpha.0...v2.0.96-alpha.0) (2023-04-03)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.95-alpha.0](https://github.com/vtex/faststore/compare/v2.0.94-alpha.0...v2.0.95-alpha.0) (2023-04-01)
+
+### Features
+
+- Adds `RegionBar` component ([#1693](https://github.com/vtex/faststore/issues/1693)) ([8390d82](https://github.com/vtex/faststore/commit/8390d829d4c1cab0f56a38b59bb2e1f1ab670fb1))
+
+## [2.0.94-alpha.0](https://github.com/vtex/faststore/compare/v2.0.93-alpha.0...v2.0.94-alpha.0) (2023-03-31)
+
+### Chores
+
+- General improvements, PriceDefinition type and docs review ([#1691](https://github.com/vtex/faststore/issues/1691)) ([7fde306](https://github.com/vtex/faststore/commit/7fde3061e8a37c12634c764ef64b652f770426eb))
+
+## [2.0.93-alpha.0](https://github.com/vtex/faststore/compare/v2.0.92-alpha.0...v2.0.93-alpha.0) (2023-03-31)
+
+### Features
+
+- Adds `ShippingSimulation` Components. ([#1689](https://github.com/vtex/faststore/issues/1689)) ([0683882](https://github.com/vtex/faststore/commit/06838820af9da08541fbc8337504b92406c958d8))
+
+## 2.0.91-alpha.0 (2023-03-30)
+
+### Bug Fixes
+
+- `PaymentMethods` Flag size ([#1690](https://github.com/vtex/faststore/issues/1690)) ([499d83b](https://github.com/vtex/faststore/commit/499d83bb9c69d964b3df963d784d84cea4b01ed3))
+
+### Documentation
+
+- Updates midnight theme stylesheet ([#1698](https://github.com/vtex/faststore/issues/1698)) ([9b01beb](https://github.com/vtex/faststore/commit/9b01beb0b8c48b5814bb4ff66d069cd5c2a2fc5f))
+
+## [2.0.90-alpha.0](https://github.com/vtex/faststore/compare/v2.0.89-alpha.0...v2.0.90-alpha.0) (2023-03-29)
+
+### Features
+
+- Adds `Filter` and `FilterSlider` Components. ([#1687](https://github.com/vtex/faststore/issues/1687)) ([a18e1af](https://github.com/vtex/faststore/commit/a18e1af9fe6037f19a558f2c49e52ba01e50e95a))
+
+## [2.0.89-alpha.0](https://github.com/vtex/faststore/compare/v2.0.88-alpha.0...v2.0.89-alpha.0) (2023-03-29)
+
+### Features
+
+- Add `OutOfStock` components ([#1685](https://github.com/vtex/faststore/issues/1685)) ([25f4442](https://github.com/vtex/faststore/commit/25f444214e234f5f0f9287ef8bc403231b2eac2b))
+
+## [2.0.88-alpha.0](https://github.com/vtex/faststore/compare/v2.0.87-alpha.0...v2.0.88-alpha.0) (2023-03-29)
+
+### Features
+
+- Adds `SearchInput`, `SearchInputField` and `SearchDropdown` components ([#1676](https://github.com/vtex/faststore/issues/1676)) ([edba839](https://github.com/vtex/faststore/commit/edba8399a27f183f2092086b3c9d69cf5c1e8f52))
+
+## [2.0.87-alpha.0](https://github.com/vtex/faststore/compare/v2.0.86-alpha.0...v2.0.87-alpha.0) (2023-03-24)
+
+### Features
+
+- Adds `SkuSelector` component ([#1677](https://github.com/vtex/faststore/issues/1677)) ([696a14e](https://github.com/vtex/faststore/commit/696a14e6d9633ececcd2818e4a32b32ce8ad2e2b))
+
+## [2.0.85-alpha.0](https://github.com/vtex/faststore/compare/v2.0.84-alpha.0...v2.0.85-alpha.0) (2023-03-22)
+
+### Features
+
+- Adds `Toast` Component ([#1672](https://github.com/vtex/faststore/issues/1672)) ([5338c46](https://github.com/vtex/faststore/commit/5338c466d9fb326c3c85acee3c1049f954afd42a))
+
+## [2.0.83-alpha.0](https://github.com/vtex/faststore/compare/v2.0.82-alpha.0...v2.0.83-alpha.0) (2023-03-21)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.81-alpha.0](https://github.com/vtex/faststore/compare/v2.0.80-alpha.0...v2.0.81-alpha.0) (2023-03-16)
+
+### Features
+
+- Image using next/future/image + new Thumbor URL ([#1661](https://github.com/vtex/faststore/issues/1661)) ([8b9a33b](https://github.com/vtex/faststore/commit/8b9a33bf2ce1d671498785a9a35db881c40fcf8e))
+
+## [2.0.80-alpha.0](https://github.com/vtex/faststore/compare/v2.0.79-alpha.0...v2.0.80-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- forwardRef errors ([#1671](https://github.com/vtex/faststore/issues/1671)) ([945c5da](https://github.com/vtex/faststore/commit/945c5dabf21b7ee87c1e9197a1115b9b1eafb9c0))
+
+## 2.0.79-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- husky pre-commit script + Lint-stage ([#1669](https://github.com/vtex/faststore/issues/1669)) ([5a3f3c8](https://github.com/vtex/faststore/commit/5a3f3c85ddc6b76377290a930cd70ed37735d8e8))
+- Puts cart-sidebar test id in the right place ([#1670](https://github.com/vtex/faststore/issues/1670)) ([0001070](https://github.com/vtex/faststore/commit/0001070617546c8f423550c0f4bf26e9a640b804))
+
+## [2.0.78-alpha.0](https://github.com/vtex/faststore/compare/v2.0.77-alpha.0...v2.0.78-alpha.0) (2023-03-15)
+
+**Note:** Version bump only for package @faststore/core
+
+## [2.0.76-alpha.0](https://github.com/vtex/faststore/compare/v2.0.75-alpha.0...v2.0.76-alpha.0) (2023-03-15)
+
+### Bug Fixes
+
+- Adds missing test id ([#1666](https://github.com/vtex/faststore/issues/1666)) ([470584d](https://github.com/vtex/faststore/commit/470584d7a7213742bc7d9fbcf9e52e28c6595676)), closes [/github.com/vtex/faststore/pull/1649/files#diff-bc55adb273e27dfb220da8699e7463fac6bc3e1292439e1fa7530e09e9a6d009](https://github.com/vtex//github.com/vtex/faststore/pull/1649/files/issues/diff-bc55adb273e27dfb220da8699e7463fac6bc3e1292439e1fa7530e09e9a6d009)
+
+## [2.0.75-alpha.0](https://github.com/vtex/faststore/compare/v2.0.74-alpha.0...v2.0.75-alpha.0) (2023-03-15)
+
+### Features
+
+- Add `SearchSuggestions` components ([#1654](https://github.com/vtex/faststore/issues/1654)) ([5dc8077](https://github.com/vtex/faststore/commit/5dc8077421267af882d22e85ddbbb8eacf807690))
+
+## 2.0.74-alpha.0 (2023-03-15)
+
+### Bug Fixes
+
+- publish version ([#1664](https://github.com/vtex/faststore/issues/1664)) ([9e29810](https://github.com/vtex/faststore/commit/9e29810f59402b694f26846db4e45971fb2e74b8))
+
+## 2.0.73-alpha.0 (2023-03-15)
+
+### Chores
+
+- attempts to fix publish workflow ([#1662](https://github.com/vtex/faststore/issues/1662)) ([7479889](https://github.com/vtex/faststore/commit/7479889f87533f8a040e4d11cd1fc5dd5c661202))
+
 ## [2.0.72-alpha.0](https://github.com/vtex/faststore/compare/v2.0.71-alpha.0...v2.0.72-alpha.0) (2023-02-17)
 
 ### Chores

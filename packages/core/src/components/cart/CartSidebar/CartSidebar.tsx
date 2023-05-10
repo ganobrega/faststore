@@ -1,35 +1,31 @@
 import { sendAnalyticsEvent } from '@faststore/sdk'
 import {
-  List as UIList,
-  IconButton as UIIconButton,
   Button as UIButton,
-  Badge as UIBadge,
-  Alert as UIAlert,
+  CartSidebar as UICartSidebar,
+  CartSidebarFooter as UICartSidebarFooter,
+  CartSidebarList as UICartSidebarList,
 } from '@faststore/ui'
 
+import type { CurrencyCode, ViewCartEvent } from '@faststore/sdk'
 import { useEffect } from 'react'
-import type { ViewCartEvent, CurrencyCode } from '@faststore/sdk'
 
-import Icon from 'src/components/ui/Icon'
-import SlideOver from 'src/components/ui/SlideOver'
+import { Icon, useFadeEffect, useUI } from '@faststore/ui'
 import { useCart } from 'src/sdk/cart'
 import { useCheckoutButton } from 'src/sdk/cart/useCheckoutButton'
 import { useSession } from 'src/sdk/session'
-import { useUI } from '@faststore/ui'
-import { useFadeEffect } from '@faststore/ui'
 
-import CartItem from '../CartItem'
 import Gift from '../../ui/Gift'
+import CartItem from '../CartItem'
 import EmptyCart from '../EmptyCart'
 import OrderSummary from '../OrderSummary'
-import styles from './cart-sidebar.module.scss'
+import styles from './section.module.scss'
 
 function CartSidebar() {
   const { currency } = useSession()
   const btnProps = useCheckoutButton()
   const cart = useCart()
-  const { cart: displayCart, closeCart } = useUI()
-  const { fade, fadeOut } = useFadeEffect()
+  const { closeCart } = useUI()
+  const { fadeOut } = useFadeEffect()
 
   const { items, gifts, totalItems, isValidating, subTotal, total } = cart
 
@@ -59,39 +55,20 @@ function CartSidebar() {
   }, [])
 
   return (
-    <SlideOver
-      fade={fade}
-      isOpen={displayCart}
-      onDismiss={fadeOut}
-      size="partial"
-      direction="rightSide"
-      className={styles.fsCartSidebar}
-      onTransitionEnd={() => fade === 'out' && closeCart()}
+    <UICartSidebar
+      overlayProps={{
+        className: `section ${styles.section} section-cart-sidebar`,
+      }}
+      totalItems={totalItems}
+      alertIcon={<Icon name="Truck" />}
+      alertText="Free shipping starts at $300"
+      onClose={fadeOut}
     >
-      <header data-fs-cart-sidebar-header data-testid="cart-sidebar">
-        <div data-fs-cart-sidebar-title>
-          <p data-fs-cart-sidebar-title-text className="text__lead">
-            Your Cart
-          </p>
-          <UIBadge variant="info">{totalItems}</UIBadge>
-        </div>
-        <UIIconButton
-          data-fs-cart-sidebar-close-button
-          data-testid="cart-sidebar-button-close"
-          aria-label="Close Cart"
-          icon={<Icon name="X" width={32} height={32} />}
-          onClick={fadeOut}
-        />
-      </header>
-      <UIAlert icon={<Icon name="Truck" />}>
-        Free shipping starts at $300
-      </UIAlert>
-
       {isEmpty ? (
-        <EmptyCart onDismiss={fadeOut} />
+        <EmptyCart onDismiss={closeCart} />
       ) : (
         <>
-          <UIList data-fs-cart-sidebar-list>
+          <UICartSidebarList>
             {items.map((item) => (
               <li key={item.id}>
                 <CartItem item={item} />
@@ -106,16 +83,15 @@ function CartSidebar() {
                 ))}
               </>
             )}
-          </UIList>
+          </UICartSidebarList>
 
-          <footer data-fs-cart-sidebar-footer>
+          <UICartSidebarFooter>
             <OrderSummary
               subTotal={subTotal}
               total={total}
               numberOfItems={totalItems}
               checkoutButton={
                 <UIButton
-                  data-fs-cart-sidebar-checkout-button
                   variant="primary"
                   icon={
                     !isValidating && (
@@ -129,10 +105,10 @@ function CartSidebar() {
                 </UIButton>
               }
             />
-          </footer>
+          </UICartSidebarFooter>
         </>
       )}
-    </SlideOver>
+    </UICartSidebar>
   )
 }
 

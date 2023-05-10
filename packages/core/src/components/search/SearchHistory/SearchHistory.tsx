@@ -1,14 +1,14 @@
-import { List as UIList, Button as UIButton } from '@faststore/ui'
-
-import Icon from 'src/components/ui/Icon'
-import Link from 'src/components/ui/Link'
+import {
+  SearchHistory as UISearchHistory,
+  SearchHistoryTerm as UISearchHistoryTerm,
+  useSearch,
+} from '@faststore/ui'
 import useSearchHistory from 'src/sdk/search/useSearchHistory'
-import useSearchInput from 'src/sdk/search/useSearchInput'
 
-import styles from '../search.module.scss'
-
-const SearchHistory = () => {
-  const { onSearchInputSelection } = useSearchInput()
+const SearchHistory = ({ ...props }) => {
+  const {
+    values: { onSearchSelection },
+  } = useSearch()
   const { searchHistory, clearSearchHistory } = useSearchHistory()
 
   if (!searchHistory.length) {
@@ -16,34 +16,18 @@ const SearchHistory = () => {
   }
 
   return (
-    <section data-fs-search-section className={styles.fsSearch}>
-      <div data-fs-search-header>
-        <p data-fs-search-title>History</p>
-        <UIButton variant="tertiary" onClick={clearSearchHistory}>
-          Clear History
-        </UIButton>
-      </div>
-      <UIList as="ol">
-        {searchHistory.map((item) => (
-          <li key={item.term} data-fs-search-item>
-            <Link
-              data-fs-search-item-link
-              variant="display"
-              href={item.path}
-              onClick={() => onSearchInputSelection?.(item.term, item.path)}
-            >
-              <Icon
-                name="Clock"
-                width={18}
-                height={18}
-                data-fs-search-item-icon
-              />
-              <span>{item.term}</span>
-            </Link>
-          </li>
-        ))}
-      </UIList>
-    </section>
+    <UISearchHistory title="History" onClear={clearSearchHistory} {...props}>
+      {searchHistory.map((item) => (
+        <UISearchHistoryTerm
+          key={item.term}
+          value={item.term}
+          linkProps={{
+            href: item.path,
+            onClick: () => onSearchSelection?.(item.term, item.path),
+          }}
+        />
+      ))}
+    </UISearchHistory>
   )
 }
 
