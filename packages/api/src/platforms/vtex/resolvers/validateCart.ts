@@ -6,21 +6,27 @@ import { md5 } from '../utils/md5'
 import {
   attachmentToPropertyValue,
   getPropertyId,
-  VALUE_REFERENCES
+  VALUE_REFERENCES,
 } from '../utils/propertyValue'
 
 import type { Context } from '..'
 import type {
   IStoreOffer,
   IStoreOrder,
-  IStorePropertyValue, IStoreSession, Maybe,
-  MutationValidateCartArgs
+  IStorePropertyValue,
+  IStoreSession,
+  Maybe,
+  MutationValidateCartArgs,
 } from '../../../__generated__/schema'
 import type {
   OrderForm,
   OrderFormInputItem,
-  OrderFormItem
+  OrderFormItem,
 } from '../clients/commerce/types/OrderForm'
+import { shouldUpdateShippingData } from '../utils/shouldUpdateShippingData'
+import { getAddressOrderForm } from '../utils/getAddressOrderForm'
+import { SelectedAddress } from '../clients/commerce/types/ShippingData'
+import { createNewAddress } from '../utils/createNewAddress'
 
 type Indexed<T> = T & { index?: number }
 
@@ -203,14 +209,13 @@ async function getOrderNumberFromSession(
   headers: Record<string, string> = {},
   commerce: Context['clients']['commerce']
 ) {
-
   const cookieSession = getCookie('vtex_session', headers.cookie)
 
   if (cookieSession) {
     const { namespaces } = await commerce.getSessionOrder()
     return namespaces.checkout?.orderFormId?.value
   }
-  return ;
+  return
 }
 
 // Returns the regionalized orderForm
@@ -232,17 +237,45 @@ const getOrderForm = async (
     return orderForm
   }
 
-  const shouldUpdateShippingData =
-    typeof session.postalCode === 'string' &&
-    orderForm.shippingData?.address?.postalCode != session.postalCode
+  const { updateShipping, addressChanged } = shouldUpdateShippingData(
+    orderForm,
+    session
+  )
 
-  if (shouldUpdateShippingData) {
-    return commerce.checkout.shippingData({
-      id: orderForm.orderFormId,
-      body: {
-        selectedAddresses: [session],
+  if (updateShipping) {
+    // Check if the orderForm address matches the one from the session
+    const oldAddress = getAddressOrderForm(orderForm, session, addressChanged)
+
+    const address = oldAddress ? oldAddress : createNewAddress(session)
+
+    const selectedAddresses = address as SelectedAddress[]
+
+    const hasDeliveryWindow = session.deliveryMode?.deliveryWindow
+      ? true
+      : false
+
+    if (hasDeliveryWindow) {
+      // if you have a Delivery Window you have to first get the delivery window to set the desired after
+      await commerce.checkout.shippingData(
+        {
+          id: orderForm.orderFormId,
+          index: orderForm.items.length,
+          deliveryMode: session.deliveryMode,
+          selectedAddresses: selectedAddresses,
+        },
+        false
+      )
+    }
+
+    return commerce.checkout.shippingData(
+      {
+        id: orderForm.orderFormId,
+        index: orderForm.items.length,
+        deliveryMode: session.deliveryMode,
+        selectedAddresses: selectedAddresses,
       },
-    })
+      true
+    )
   }
 
   return orderForm
@@ -266,7 +299,11 @@ export const validateCart = async (
   { cart: { order }, session }: MutationValidateCartArgs,
   ctx: Context
 ) => {
-  const { orderNumber: orderNumberFromCart, acceptedOffer, shouldSplitItem } = order
+  const {
+    orderNumber: orderNumberFromCart,
+    acceptedOffer,
+    shouldSplitItem,
+  } = order
   const {
     clients: { commerce },
     loaders: { skuLoader },
@@ -294,15 +331,24 @@ export const validateCart = async (
   // Step1: Get OrderForm from VTEX Commerce
   const orderForm = await getOrderForm(orderNumber, session, ctx)
 
-  // Step1.5: Check if another system changed the orderForm with this orderNumber
+  // Step1.1: Checks if the orderForm id has changed. There are three cases for this:
+  // Social Selling: the vtex_session cookie contains a new orderForm id with Social Selling data
+  // My Orders: the customer clicks on reordering through generating a new cart and when returning to the faststore, this information needs to be returned by vtex_session cookie.
+  // New session: a new user enters the website and has no orderForm attributed to it (has no relation to the vtex_session cookie).
+  // In all cases, the origin orderForm should replace the copy that's in the browser
+  if (orderForm.orderFormId != orderNumberFromCart) {
+    return orderFormToCart(orderForm, skuLoader)
+  }
+
+  // Step1.2: Check if another system changed the orderForm with this orderNumber
   // If so, this means the user interacted with this cart elsewhere and expects
   // to see this new cart state instead of what's stored on the user's browser.
   const isStale = isOrderFormStale(orderForm)
-  
+
   if (isStale && orderNumber) {
     const newOrderForm = await setOrderFormEtag(orderForm, commerce).then(
       joinItems
-      )
+    )
     return orderFormToCart(newOrderForm, skuLoader)
   }
 
@@ -366,9 +412,7 @@ export const validateCart = async (
       shouldSplitItem,
     })
     // update orderForm etag so we know last time we touched this orderForm
-    .then((form) =>
-      setOrderFormEtag(form, commerce)
-    )
+    .then((form) => setOrderFormEtag(form, commerce))
     .then(joinItems)
 
   // Step5: If no changes detected before/after updating orderForm, the order is validated

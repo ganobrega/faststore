@@ -9,7 +9,10 @@ import {
   removeSync,
   symlinkSync,
   writeFileSync,
+  writeJsonSync,
 } from 'fs-extra'
+
+import path from 'path'
 
 import {
   configFileName,
@@ -23,6 +26,7 @@ import {
   tmpNodeModulesDir,
   tmpStoreConfigFileDir,
   tmpThemesCustomizationsFileDir,
+  tmpCmsWebhookUrlsFileDir,
   userCMSDir,
   userNodeModulesDir,
   userSrcDir,
@@ -60,7 +64,7 @@ function copyCoreFiles() {
   try {
     copySync(coreDir, tmpDir, {
       filter(src) {
-        const fileOrDirName = src.split('/').pop()
+        const fileOrDirName = path.basename(src)
         const shouldCopy = fileOrDirName
           ? !ignorePaths.includes(fileOrDirName)
           : true
@@ -85,10 +89,37 @@ function copyUserSrcToCustomizations() {
   }
 }
 
+async function createCmsWebhookUrlsJsonFile() {
+  const userStoreConfig = await import(userStoreConfigFileDir)
+
+  if (
+    userStoreConfig?.vtexHeadlessCms &&
+    userStoreConfig.vtexHeadlessCms?.webhookUrls
+  ) {
+    const { webhookUrls } = userStoreConfig?.vtexHeadlessCms
+
+    try {
+      writeJsonSync(
+        tmpCmsWebhookUrlsFileDir,
+        { urls: webhookUrls },
+        { spaces: 2 }
+      )
+      console.log(`${chalk.green('success')} - CMS webhook URLs file created`)
+    } catch (err) {
+      console.error(`${chalk.red('error')} - ${err}`)
+    }
+  } else {
+    console.info(`${chalk.blue('info')} - No CMS webhook URLs were provided`)
+  }
+}
+
 async function copyTheme() {
   const storeConfig = await import(userStoreConfigFileDir)
   if (storeConfig.theme) {
-    const customTheme = `${userThemesFileDir}/${storeConfig.theme}.scss`
+    const customTheme = path.join(
+      userThemesFileDir,
+      `${storeConfig.theme}.scss`
+    )
     if (existsSync(customTheme)) {
       try {
         copyFileSync(customTheme, tmpThemesCustomizationsFileDir)
@@ -124,19 +155,19 @@ async function copyTheme() {
 }
 
 function mergeCMSFile(fileName: string) {
-  const customFilePath = `${userCMSDir}/${fileName}`
-  const coreFilePath = `${coreCMSDir}/${fileName}`
+  const customFilePath = path.join(userCMSDir, fileName)
+  const coreFilePath = path.join(coreCMSDir, fileName)
 
   const coreFile = readFileSync(coreFilePath, 'utf8')
   const output = [...JSON.parse(coreFile)]
 
   // TODO: create a validation when has the cms files but doesn't have a component for then
   if (existsSync(customFilePath)) {
-    const customFile = readFileSync(customFilePath, 'utf8');
-    
+    const customFile = readFileSync(customFilePath, 'utf8')
+
     try {
       output.push(...JSON.parse(customFile))
-    } catch(err) {
+    } catch (err) {
       if (err instanceof SyntaxError) {
         console.info(
           `${chalk.red(
@@ -150,10 +181,7 @@ function mergeCMSFile(fileName: string) {
   }
 
   try {
-    writeFileSync(
-      `${tmpCMSDir}/${fileName}`,
-      JSON.stringify(output)
-    )
+    writeFileSync(path.join(tmpCMSDir, fileName), JSON.stringify(output))
     console.log(
       `${chalk.green('success')} - CMS file ${chalk.dim(fileName)} created`
     )
@@ -176,10 +204,8 @@ async function copyStoreConfig() {
     const storeConfigFromStore = await import(userStoreConfigFileDir)
 
     // avoid duplicate default values
-    const { default: _, ...otherCoreProps } =
-      storeConfigFromCore
-    const { default: __, ...otherStoreProps } =
-      storeConfigFromStore
+    const { default: _, ...otherCoreProps } = storeConfigFromCore
+    const { default: __, ...otherStoreProps } = storeConfigFromStore
 
     const mergedStoreConfig = deepmerge(
       { ...otherCoreProps },
@@ -235,6 +261,7 @@ export async function generate(options?: GenerateOptions) {
     setupPromise,
     copyUserSrcToCustomizations(),
     copyTheme(),
+    createCmsWebhookUrlsJsonFile(),
     mergeCMSFiles(),
     copyStoreConfig(),
   ])

@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.176-alpha.0](https://github.com/vtex/faststore/compare/v2.0.175-alpha.0...v2.0.176-alpha.0) (2023-06-02)
+
+### Bug Fixes
+
+- Product description mock data ([#1815](https://github.com/vtex/faststore/issues/1815)) ([98bfde8](https://github.com/vtex/faststore/commit/98bfde887b3721de9a75ebc6325aa7b0842707c5))
+
+## [2.0.175-alpha.0](https://github.com/vtex/faststore/compare/v2.0.174-alpha.0...v2.0.175-alpha.0) (2023-06-02)
+
+### Features
+
+- Allows some section's component to be overridable ([#1768](https://github.com/vtex/faststore/issues/1768)) ([e19cba2](https://github.com/vtex/faststore/commit/e19cba222351510ffc91ba130ed61e857e9e6bb5))
+
+## 2.0.173-alpha.0 (2023-06-01)
+
+**Note:** Version bump only for package @faststore/components
+
+## [2.0.168-alpha.0](https://github.com/vtex/faststore/compare/v2.0.167-alpha.0...v2.0.168-alpha.0) (2023-05-29)
+
+### Features
+
+- Adds `RegionBar` and `RegionModal` Sections ([#1798](https://github.com/vtex/faststore/issues/1798)) ([627fa25](https://github.com/vtex/faststore/commit/627fa25832a7a41a1feebe07bef43b67e5edf13a))
+
+## [2.0.160-alpha.0](https://github.com/vtex/faststore/compare/v2.0.159-alpha.0...v2.0.160-alpha.0) (2023-05-24)
+
+### Bug Fixes
+
+- Integration tests ([#1772](https://github.com/vtex/faststore/issues/1772)) ([b750bcc](https://github.com/vtex/faststore/commit/b750bcc8298e7fd467e6e92da8a9de926d7fcffe))
+
+## [2.0.159-alpha.0](https://github.com/vtex/faststore/compare/v2.0.158-alpha.0...v2.0.159-alpha.0) (2023-05-24)
+
+**Note:** Version bump only for package @faststore/components
+
+## [2.0.152-alpha.0](https://github.com/vtex/faststore/compare/v2.0.151-alpha.0...v2.0.152-alpha.0) (2023-05-23)
+
+### Features
+
+- Fix Styles ([#1775](https://github.com/vtex/faststore/issues/1775)) ([2257f6e](https://github.com/vtex/faststore/commit/2257f6e59bac2dc574cf35d71967de5282374969))
+
+## [2.0.151-alpha.0](https://github.com/vtex/faststore/compare/v2.0.150-alpha.0...v2.0.151-alpha.0) (2023-05-22)
+
+### Features
+
+- Adjust `ProductDetails` for CMS ([#1740](https://github.com/vtex/faststore/issues/1740)) ([5cbd315](https://github.com/vtex/faststore/commit/5cbd31544bf57336f6d53780142338f80b61226b))
+
+## [2.0.145-alpha.0](https://github.com/vtex/faststore/compare/v2.0.144-alpha.0...v2.0.145-alpha.0) (2023-05-18)
+
+### Documentation
+
+- Checkbox Field component props ([#1774](https://github.com/vtex/faststore/issues/1774)) ([90abbd4](https://github.com/vtex/faststore/commit/90abbd4a4da9c30f54a4569e828b990cde0ca59e))
+
+## [2.0.142-alpha.0](https://github.com/vtex/faststore/compare/v2.0.141-alpha.0...v2.0.142-alpha.0) (2023-05-16)
+
+### Features
+
+- Adjust `Navbar` for CMS ([#1756](https://github.com/vtex/faststore/issues/1756)) ([105a8b2](https://github.com/vtex/faststore/commit/105a8b2f69ffd8438532d7c9eb959ed26a567675))
+
+## [2.0.141-alpha.0](https://github.com/vtex/faststore/compare/v2.0.140-alpha.0...v2.0.141-alpha.0) (2023-05-16)
+
+### Features
+
+- Pages with `RenderSection` + `Breadcrumb` section CMS ([#1747](https://github.com/vtex/faststore/issues/1747)) ([63f1b6a](https://github.com/vtex/faststore/commit/63f1b6a3b6da30b0c24ba78a8bffbc62470eac0a))
+
+## [2.0.135-alpha.0](https://github.com/vtex/faststore/compare/v2.0.134-alpha.0...v2.0.135-alpha.0) (2023-05-10)
+
+### Bug Fixes
+
+- Lighthouse Performance 🟢 ([#1751](https://github.com/vtex/faststore/issues/1751)) ([bf8de0e](https://github.com/vtex/faststore/commit/bf8de0e5a8427fbe750b561a80fd186851ffd535))
+
 ## [2.0.133-alpha.0](https://github.com/vtex/faststore/compare/v2.0.132-alpha.0...v2.0.133-alpha.0) (2023-05-09)
 
 ### Features

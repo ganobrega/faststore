@@ -92,18 +92,19 @@ theme: 'soft-blue',
   // Components
   // --------------------------------------------------------
 
-  [data-fs-product-card] {
-    --fs-product-card-border-color: transparent;
-    --fs-product-card-border-color-hover: var(--fs-border-color-light);
+  .section {
+    [data-fs-product-card] {
+      --fs-product-card-border-color: transparent;
+      --fs-product-card-border-color-hover: var(--fs-border-color-light);
 
-    &[data-fs-product-card-bordered='true'] {
-      --fs-product-card-border-color: var(--fs-border-color-light);
+      &[data-fs-product-card-bordered='true'] {
+        --fs-product-card-border-color: var(--fs-border-color-light);
+      }
     }
-  }
 
-  [data-fs-logo] {
-    --fs-logo-img: url('~/public/brandless-positive.png');
-    --fs-logo-width: 8rem;
+    [data-fs-logo] {
+      --fs-logo-width: 8rem;
+    }
   }
 }
 ```

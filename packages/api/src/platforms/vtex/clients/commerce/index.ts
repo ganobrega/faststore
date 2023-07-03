@@ -19,6 +19,7 @@ import { getCookie } from '../../utils/getCookies'
 import type { SalesChannel } from './types/SalesChannel'
 import { MasterDataResponse } from './types/Newsletter'
 import type { Address, AddressInput } from './types/Address'
+import { DeliveryMode, SelectedAddress } from './types/ShippingData'
 
 type ValueOf<T> = T extends Record<string, infer K> ? K : never
 
@@ -30,7 +31,7 @@ const BASE_INIT = {
 }
 
 export const VtexCommerce = (
-  { account, environment }: Options,
+  { account, environment, incrementAddress }: Options,
   ctx: Context
 ) => {
   const base = `https://${account}.${environment}.com.br`
@@ -89,21 +90,48 @@ export const VtexCommerce = (
           }
         )
       },
-      shippingData: ({
-        id,
-        body,
-      }: {
-        id: string
-        body: unknown
-      }): Promise<OrderForm> => {
+
+      shippingData: (
+        {
+          id,
+          index,
+          deliveryMode,
+          selectedAddresses,
+        }: {
+          id: string
+          index: number
+          deliveryMode?: DeliveryMode | null
+          selectedAddresses: SelectedAddress[]
+        },
+        setDeliveryWindow?: boolean
+      ): Promise<OrderForm> => {
+        const deliveryWindow = setDeliveryWindow
+          ? {
+              startDateUtc: deliveryMode?.deliveryWindow?.startDate,
+              endDateUtc: deliveryMode?.deliveryWindow?.endDate,
+            }
+          : null
+
+        const mappedBody = {
+          logisticsInfo: Array.from({ length: index }, (_, itemIndex) => ({
+            itemIndex,
+            selectedDeliveryChannel: deliveryMode?.deliveryChannel || null,
+            selectedSla: deliveryMode?.deliveryMethod || null,
+            deliveryWindow: deliveryWindow,
+          })),
+          selectedAddresses: selectedAddresses,
+          clearAddressIfPostalCodeNotFound: incrementAddress,
+        }
+
         return fetchAPI(
           `${base}/api/checkout/pub/orderForm/${id}/attachments/shippingData`,
           {
             ...BASE_INIT,
-            body: JSON.stringify(body),
+            body: JSON.stringify(mappedBody),
           }
         )
       },
+
       orderForm: ({
         id,
         refreshOutdatedData = true,

@@ -1,18 +1,13 @@
 [
   {
-    "id": "globalAlert",
-    "name": "Global Alert Page",
-    "configurationSchemaSets": []
-  },
-  {
     "id": "globalSections",
     "name": "Global Sections",
     "configurationSchemaSets": [],
     "isSingleton": true
   },
   {
-    "id": "page",
-    "name": "Page",
+    "id": "landingPage",
+    "name": "Landing Page",
     "configurationSchemaSets": [
       {
         "name": "Settings",
@@ -37,12 +32,58 @@
                   "title": "Default page title",
                   "description": "Display this title when no other tile is available",
                   "type": "string",
-                  "default": "FastStore"
+                  "default": "FastStore Starter"
                 },
                 "description": {
                   "title": "Meta tag description",
                   "type": "string",
-                  "default": "A beautifuly designed store"
+                  "default": "A beautifully designed store"
+                },
+                "canonical": {
+                  "title": "Canonical url for the page",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "home",
+    "name": "Home",
+    "isSingleton": true,
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "seo",
+            "schema": {
+              "title": "SEO",
+              "description": "Search Engine Optimization options",
+              "type": "object",
+              "widget": {
+                "ui:ObjectFieldTemplate": "GoogleSeoPreview"
+              },
+              "required": ["slug", "title", "description"],
+              "properties": {
+                "slug": {
+                  "title": "Path",
+                  "type": "string",
+                  "default": "/"
+                },
+                "title": {
+                  "title": "Default page title",
+                  "description": "Display this title when no other tile is available",
+                  "type": "string",
+                  "default": "FastStore Starter"
+                },
+                "description": {
+                  "title": "Meta tag description",
+                  "type": "string",
+                  "default": "A beautifully designed store"
                 },
                 "canonical": {
                   "title": "Canonical url for the page",
@@ -58,11 +99,113 @@
   {
     "id": "pdp",
     "name": "Product Page",
+    "isSingleton": true,
     "configurationSchemaSets": []
   },
   {
     "id": "plp",
     "name": "Product List Page",
-    "configurationSchemaSets": []
+    "isSingleton": true,
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "productGallery",
+            "schema": {
+              "title": "Product Gallery",
+              "description": "ProductGallery options",
+              "type": "object",
+              "required": ["itemsPerPage", "sortBySelection"],
+              "properties": {
+                "itemsPerPage": {
+                  "title": "Number of ProductCards per page",
+                  "type": "integer",
+                  "default": 12
+                },
+                "sortBySelection": {
+                  "title": "Default sort by value",
+                  "type": "string",
+                  "default": "score_desc",
+                  "enumNames": [
+                    "Price, descending",
+                    "Price, ascending",
+                    "Top sales",
+                    "Name, A-Z",
+                    "Name, Z-A",
+                    "Release date",
+                    "Discount",
+                    "Relevance"
+                  ],
+                  "enum": [
+                    "price_desc",
+                    "price_asc",
+                    "orders_desc",
+                    "name_asc",
+                    "name_desc",
+                    "release_desc",
+                    "discount_desc",
+                    "score_desc"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "search",
+    "name": "Search Page",
+    "isSingleton": true,
+    "configurationSchemaSets": [
+      {
+        "name": "Settings",
+        "configurations": [
+          {
+            "name": "productGallery",
+            "schema": {
+              "title": "Product Gallery",
+              "description": "ProductGallery options",
+              "type": "object",
+              "required": ["itemsPerPage", "sortBySelection"],
+              "properties": {
+                "itemsPerPage": {
+                  "title": "Number of ProductCards per page",
+                  "type": "integer",
+                  "default": 12
+                },
+                "sortBySelection": {
+                  "title": "Default sort by value",
+                  "type": "string",
+                  "default": "score_desc",
+                  "enumNames": [
+                    "Price, descending",
+                    "Price, ascending",
+                    "Top sales",
+                    "Name, A-Z",
+                    "Name, Z-A",
+                    "Release date",
+                    "Discount",
+                    "Relevance"
+                  ],
+                  "enum": [
+                    "price_desc",
+                    "price_asc",
+                    "orders_desc",
+                    "name_asc",
+                    "name_desc",
+                    "release_desc",
+                    "discount_desc",
+                    "score_desc"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

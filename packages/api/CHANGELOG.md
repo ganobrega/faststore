@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.0.173-alpha.0 (2023-06-01)
+
+**Note:** Version bump only for package @faststore/api
+
+## [2.0.165-alpha.0](https://github.com/vtex/faststore/compare/v2.0.164-alpha.0...v2.0.165-alpha.0) (2023-05-26)
+
+### Features
+
+- add api telemetry ([#1789](https://github.com/vtex/faststore/issues/1789)) ([30c66d7](https://github.com/vtex/faststore/commit/30c66d74abffbd168acfbb44f5bd6f7d56df8b58))
+
+## [2.0.163-alpha.0](https://github.com/vtex/faststore/compare/v2.0.162-alpha.0...v2.0.163-alpha.0) (2023-05-26)
+
+### Features
+
+- add search redirect at api package 2.x ([#1749](https://github.com/vtex/faststore/issues/1749)) ([fe198e1](https://github.com/vtex/faststore/commit/fe198e1de73eda89c220f8a61bd2e83efbd4af9c))
+
+## [2.0.162-alpha.0](https://github.com/vtex/faststore/compare/v2.0.161-alpha.0...v2.0.162-alpha.0) (2023-05-26)
+
+**Note:** Version bump only for package @faststore/api
+
+## [2.0.158-alpha.0](https://github.com/vtex/faststore/compare/v2.0.157-alpha.0...v2.0.158-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/api
+
+## [2.0.157-alpha.0](https://github.com/vtex/faststore/compare/v2.0.156-alpha.0...v2.0.157-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/api
+
+## [2.0.156-alpha.0](https://github.com/vtex/faststore/compare/v2.0.155-alpha.0...v2.0.156-alpha.0) (2023-05-23)
+
+**Note:** Version bump only for package @faststore/api
+
+## [2.0.154-alpha.0](https://github.com/vtex/faststore/compare/v2.0.153-alpha.0...v2.0.154-alpha.0) (2023-05-23)
+
+### Features
+
+- Adjust `ProductShelf` for CMS ([#1766](https://github.com/vtex/faststore/issues/1766)) ([1798536](https://github.com/vtex/faststore/commit/1798536f60a508997616350f0b4ac6c11878dc04))
+
+## [2.0.140-alpha.0](https://github.com/vtex/faststore/compare/v2.0.139-alpha.0...v2.0.140-alpha.0) (2023-05-16)
+
+**Note:** Version bump only for package @faststore/api
+
 ## [2.0.118-alpha.0](https://github.com/vtex/faststore/compare/v2.0.117-alpha.0...v2.0.118-alpha.0) (2023-04-26)
 
 **Note:** Version bump only for package @faststore/api

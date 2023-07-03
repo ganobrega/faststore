@@ -17,11 +17,11 @@ body {
   --fs-color-main-3                    : #002c71;
   --fs-color-main-4                    : #002155;
 
-  --fs-color-accent-0                  : #e3e6e8;
-  --fs-color-accent-1                  : #e3e6e8;
-  --fs-color-accent-2                  : #74808b;
-  --fs-color-accent-3                  : #5d666f;
-  --fs-color-accent-4                  : #171a1c;
+  --fs-color-accent-0                  : #efeaf5;
+  --fs-color-accent-1                  : #d3c9de;
+  --fs-color-accent-2                  : #9d8abf;
+  --fs-color-accent-3                  : #74678c;
+  --fs-color-accent-4                  : #423759;
 
   --fs-color-neutral-0                 : #ffffff;
   --fs-color-neutral-1                 : #f1f2f3;
@@ -56,6 +56,7 @@ body {
 
   // COMPONENTS & STATES
   --fs-color-body-bkg                  : var(--fs-color-neutral-0);
+  --fs-body-bkg                        : var(--fs-color-body-bkg);
 
   --fs-color-action-text               : var(--fs-color-text-inverse);
   --fs-color-action-bkg                : var(--fs-color-accent-4);
@@ -204,7 +205,7 @@ body {
   --fs-z-index-highest                 : 3;
 
   // CONTAINER
-  --fs-grid-max-width                  : var(--fs-grid-breakpoint-notebook);
+  --fs-grid-max-width                  : calc(var(--fs-grid-breakpoint-notebook) - var(--fs-grid-padding) - var(--fs-grid-padding));
 
   // GAPS
   --fs-grid-gap-0                      : var(--fs-spacing-1);
@@ -271,4 +272,7 @@ body {
   --fs-shadow                          : none;
   --fs-shadow-darker                   : 0 0 10px rgb(0 0 0 / 20%);
   --fs-shadow-hover                    : 0 2px 3px rgba(0,0,0,.1);
+
+  // LOGO
+  --fs-logo-width                      : 7rem;
 }

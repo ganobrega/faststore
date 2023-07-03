@@ -18,6 +18,7 @@ module.exports = {
     workspace: 'master',
     environment: 'vtexcommercestable',
     hideUnavailableItems: true,
+    incrementAddress: true,
   },
 
   // Default session
@@ -29,6 +30,8 @@ module.exports = {
     locale: 'en-US',
     channel: '{"salesChannel":"1","regionId":""}',
     country: 'USA',
+    deliveryMode: null,
+    addressType: null,
     postalCode: null,
     geoCoordinates: null,
     person: null,
@@ -48,6 +51,14 @@ module.exports = {
   checkoutUrl: 'https://secure.vtexfaststore.com/checkout',
   loginUrl: 'https://secure.vtexfaststore.com/api/io/login',
   accountUrl: 'https://secure.vtexfaststore.com/api/io/account',
+
+  // Preview redirects
+  previewRedirects: {
+    home: '/',
+    plp: '/office',
+    search: '/s?q=headphone',
+    pdp: '/apple-magic-mouse/p',
+  },
 
   // Lighthouse CI
   lighthouse: {

@@ -1,20 +1,29 @@
-import {
-  ShippingSimulation as UIShippingSimulation,
-  ShippingSimulationProps as UIShippingSimulationProps,
-} from '@faststore/ui'
+import { ShippingSimulationProps as UIShippingSimulationProps } from '@faststore/ui'
+
 import { getShippingSimulation } from 'src/sdk/shipping'
 import { ShippingSla } from '@generated/graphql'
 import { useSession } from 'src/sdk/session'
 import { IShippingItem } from '@faststore/api'
 import { useShippingSimulation } from './useShippingSimulation'
 
-interface ShippingSimulationProps {
+import { Components } from 'src/components/sections/ProductDetails/Overrides'
+
+type ShippingSimulationOptionalProps =
+  | 'title'
+  | 'formatter'
+  | 'inputLabel'
+  | 'optionsLabel'
+  | 'idkPostalCodeLinkProps'
+
+interface ShippingSimulationProps
+  extends Partial<
+    Pick<UIShippingSimulationProps, ShippingSimulationOptionalProps>
+  > {
   productShippingInfo: {
     id: string
     quantity: number
     seller: string
   }
-  formatter?: UIShippingSimulationProps['formatter']
 }
 
 const fetchShippingSimulation = async (
@@ -41,9 +50,13 @@ const fetchShippingSimulation = async (
 export default function ShippingSimulation({
   productShippingInfo,
   formatter,
+  inputLabel,
+  title,
+  idkPostalCodeLinkProps,
   ...otherProps
 }: ShippingSimulationProps) {
   const { country, postalCode: sessionPostalCode } = useSession()
+  const { ShippingSimulation: ShippingSimulationWrapper } = Components
 
   const {
     input,
@@ -63,7 +76,7 @@ export default function ShippingSimulation({
   const { location, options } = shippingSimulation
 
   return (
-    <UIShippingSimulation
+    <ShippingSimulationWrapper
       formatter={formatter}
       onInput={handleOnInput}
       onSubmit={handleSubmit}
@@ -73,6 +86,9 @@ export default function ShippingSimulation({
       displayClearButton={displayClearButton}
       errorMessage={errorMessage}
       postalCode={postalCode}
+      inputLabel={inputLabel}
+      title={title}
+      idkPostalCodeLinkProps={idkPostalCodeLinkProps}
       {...otherProps}
     />
   )

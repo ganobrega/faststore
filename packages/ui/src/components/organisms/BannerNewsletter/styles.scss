@@ -1,4 +1,4 @@
-[data-fs-banner-newsletter] {
+[data-fs-banner-text-newsletter] {
   margin-bottom: var(--fs-grid-padding);
 
   [data-fs-banner-text] {
@@ -10,7 +10,8 @@
   }
 
   @include media(">=notebook") {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     column-gap: var(--fs-grid-gap-3);
 
     > section {

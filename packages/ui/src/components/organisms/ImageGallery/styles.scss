@@ -114,9 +114,10 @@
       padding: 0;
       overflow: hidden;
       background-color: transparent;
-      border: var(--fs-image-gallery-selector-thumbnail-border-width) solid transparent;
       border-radius: var(--fs-image-gallery-selector-thumbnail-border-radius);
+      border: var(--fs-image-gallery-selector-thumbnail-border-width) solid transparent;
       transition: all var(--fs-image-gallery-transition-timing) var(--fs-image-gallery-transition-function);
+      img { border-radius: var(--fs-image-gallery-selector-thumbnail-border-radius); }
       > span {
         width: 100%;
         height: 100%;
@@ -200,8 +201,6 @@
     }
 
     &:hover [data-fs-button-wrapper] { box-shadow: var(--fs-image-gallery-selector-control-shadow); }
-
-    &:hover { box-shadow: var(--fs-image-gallery-selector-control-shadow); }
 
     @include media(">=notebook") {
       transform: rotate(90deg);

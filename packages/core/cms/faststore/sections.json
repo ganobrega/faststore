@@ -149,11 +149,12 @@
       "title": "Navbar",
       "type": "object",
       "description": "Navbar configuration",
-      "required": ["image"],
+      "required": ["logo"],
       "properties": {
         "logo": {
           "title": "Logo",
           "type": "object",
+          "required": ["src"],
           "properties": {
             "src": {
               "title": "Image",
@@ -165,6 +166,39 @@
             "alt": {
               "title": "Alternative Label",
               "type": "string"
+            }
+          }
+        },
+        "searchInput": {
+          "title": "Search Input",
+          "description": "Search Input configurations",
+          "type": "object",
+          "required": ["sort"],
+          "properties": {
+            "sort": {
+              "title": "Results default sort value",
+              "type": "string",
+              "default": "score_desc",
+              "enumNames": [
+                "Price, descending",
+                "Price, ascending",
+                "Top sales",
+                "Name, A-Z",
+                "Name, Z-A",
+                "Release date",
+                "Discount",
+                "Relevance"
+              ],
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "orders_desc",
+                "name_asc",
+                "name_desc",
+                "release_desc",
+                "discount_desc",
+                "score_desc"
+              ]
             }
           }
         },
@@ -194,6 +228,11 @@
               "title": "Call to Action",
               "type": "string",
               "default": "Sign In"
+            },
+            "myAccountLabel": {
+              "title": "My Account Label",
+              "type": "string",
+              "default": "My Account"
             }
           }
         },
@@ -270,6 +309,41 @@
                     "title": "Link URL",
                     "type": "string"
                   }
+                }
+              }
+            },
+            "menu": {
+              "type": "object",
+              "title": "Menu",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "object",
+                  "properties": {
+                    "icon": {
+                      "title": "Icon",
+                      "type": "string",
+                      "enumNames": ["List"],
+                      "enum": ["List"],
+                      "default": "List"
+                    },
+                    "alt": {
+                      "title": "Alternative Label",
+                      "type": "string",
+                      "default": "List"
+                    }
+                  }
+                }
+              }
+            },
+            "home": {
+              "title": "Home",
+              "type": "object",
+              "properties": {
+                "label": {
+                  "title": "Go to Home Label",
+                  "type": "string",
+                  "default": "Go to Home"
                 }
               }
             }
@@ -607,7 +681,7 @@
       "title": "Hero",
       "description": "Add a quick promotion with an image/action pair",
       "type": "object",
-      "required": ["title", "link"],
+      "required": ["title"],
       "properties": {
         "title": {
           "title": "Title",
@@ -620,7 +694,6 @@
         "link": {
           "title": "Call to Action",
           "type": "object",
-          "required": ["text", "url"],
           "properties": {
             "text": {
               "type": "string",
@@ -761,8 +834,8 @@
           ],
           "enumNames": [
             "Discount: higher to lower",
-            "Name: Z-A",
             "Name: A-Z",
+            "Name: Z-A",
             "Orders: higher to lower",
             "Price: lower to higher",
             "Price: higher to lower",
@@ -806,15 +879,10 @@
               "type": "boolean",
               "default": true
             },
-            "showBuyButton": {
-              "title": "Show buy button?",
+            "bordered": {
+              "title": "Cards should be bordered?",
               "type": "boolean",
               "default": true
-            },
-            "buyButtonTitle": {
-              "title": "Buy Button Text",
-              "type": "string",
-              "default": "Buy"
             }
           }
         }
@@ -965,7 +1033,10 @@
         },
         "privacyPolicy": {
           "title": "Privacy Policy Disclaimer",
-          "type": "string"
+          "type": "string",
+          "widget": {
+            "ui:widget": "draftjs-rich-text"
+          }
         },
         "emailInputLabel": {
           "title": "Email input label",
@@ -986,6 +1057,66 @@
           "title": "Subscribe button label",
           "type": "string",
           "default": "Subscribe"
+        },
+        "subscribeButtonLoadingLabel": {
+          "title": "Subscribe button loading label",
+          "type": "string",
+          "default": "Loading..."
+        },
+        "card": {
+          "title": "Newsletter should be in card format?",
+          "type": "boolean",
+          "default": false
+        },
+        "toastSubscribe": {
+          "title": "Toast Subscribe",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Hooray!"
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Thank for your subscription."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyCheck"],
+              "enum": ["CircleWavyCheck"],
+              "default": "CircleWavyCheck"
+            }
+          }
+        },
+        "toastSubscribeError": {
+          "title": "Toast Subscribe Error",
+          "type": "object",
+          "properties": {
+            "title": {
+              "title": "Title",
+              "description": "Message Title",
+              "type": "string",
+              "default": "Oops."
+            },
+            "message": {
+              "title": "Message",
+              "description": "Message",
+              "type": "string",
+              "default": "Something went wrong. Please Try again."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["CircleWavyWarning"],
+              "enum": ["CircleWavyWarning"],
+              "default": "CircleWavyWarning"
+            }
+          }
         }
       }
     }
@@ -1013,11 +1144,13 @@
           "properties": {
             "title": {
               "title": "Title",
-              "type": "string"
+              "type": "string",
+              "default": "Get to Know Our Next Release"
             },
             "caption": {
               "title": "Caption",
-              "type": "string"
+              "type": "string",
+              "default": "Discover cutting-edge tech, advanced features, and a seamless user experience. Get ready for the future!"
             },
             "link": {
               "title": "Call to Action",
@@ -1026,11 +1159,13 @@
               "properties": {
                 "text": {
                   "title": "Text",
-                  "type": "string"
+                  "type": "string",
+                  "default": "Shop now"
                 },
                 "url": {
                   "title": "URL",
-                  "type": "string"
+                  "type": "string",
+                  "default": "/"
                 }
               }
             },
@@ -1038,13 +1173,15 @@
               "title": "Color variant",
               "type": "string",
               "enumNames": ["Main", "Light", "Accent"],
-              "enum": ["main", "light", "accent"]
+              "enum": ["main", "light", "accent"],
+              "default": "light"
             },
             "variant": {
               "title": "Variant",
               "type": "string",
               "enumNames": ["Primary", "Secondary"],
-              "enum": ["primary", "secondary"]
+              "enum": ["primary", "secondary"],
+              "default": "secondary"
             }
           }
         },
@@ -1053,6 +1190,24 @@
           "type": "object",
           "required": ["title", "description"],
           "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Envelop"],
+                  "enum": ["Envelop"],
+                  "default": "Envelop"
+                },
+                "alt": {
+                  "type": "string",
+                  "title": "Alternative Label",
+                  "default": "Envelop"
+                }
+              }
+            },
             "title": {
               "title": "Title",
               "type": "string",
@@ -1062,6 +1217,43 @@
               "title": "Description",
               "type": "string",
               "default": "Receive our news and promotions in advance"
+            },
+            "privacyPolicy": {
+              "title": "Privacy Policy Disclaimer",
+              "type": "string",
+              "widget": {
+                "ui:widget": "draftjs-rich-text"
+              }
+            },
+            "emailInputLabel": {
+              "title": "Email input label",
+              "type": "string",
+              "default": "Your Email"
+            },
+            "displayNameInput": {
+              "title": "Request name?",
+              "type": "boolean",
+              "default": true
+            },
+            "nameInputLabel": {
+              "title": "Name input label",
+              "type": "string",
+              "default": "Your Name"
+            },
+            "subscribeButtonLabel": {
+              "title": "Subscribe button label",
+              "type": "string",
+              "default": "Subscribe"
+            },
+            "subscribeButtonLoadingLabel": {
+              "title": "Subscribe button loading label",
+              "type": "string",
+              "default": "Loading..."
+            },
+            "card": {
+              "title": "Newsletter should be in card format?",
+              "type": "boolean",
+              "default": true
             }
           }
         }
@@ -1101,9 +1293,21 @@
           "type": "object",
           "properties": {
             "discountBadge": {
-              "title": "Show Discount Badge?",
-              "type": "boolean",
-              "default": false
+              "title": "Discount Badge",
+              "type": "object",
+              "properties": {
+                "showDiscountBadge": {
+                  "title": "Show Discount Badge?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "size": {
+                  "title": "Size",
+                  "type": "string",
+                  "enumNames": ["Big", "Small"],
+                  "enum": ["big", "small"]
+                }
+              }
             },
             "refNumber": {
               "title": "Show Reference Number?",
@@ -1175,8 +1379,8 @@
             }
           }
         },
-        "productDetailsContent": {
-          "title": "Product Details Content",
+        "productDescription": {
+          "title": "Product Description",
           "type": "object",
           "properties": {
             "initiallyExpanded": {
@@ -1185,18 +1389,382 @@
               "enumNames": ["First", "All", "None"],
               "enum": ["first", "all", "none"]
             },
-            "details": {
+            "displayDescription": {
+              "title": "Should display description?",
+              "type": "boolean",
+              "default": true
+            },
+            "title": {
+              "title": "Description section title",
+              "type": "string",
+              "default": "Description"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "ProductGallery",
+    "schema": {
+      "title": "Product Gallery",
+      "type": "object",
+      "description": "Product Gallery configuration",
+      "required": ["filter"],
+      "properties": {
+        "searchTermLabel": {
+          "title": "Search page term label",
+          "type": "string",
+          "default": "Showing results for:"
+        },
+        "totalCountLabel": {
+          "title": "Total count label",
+          "type": "string",
+          "default": "Results"
+        },
+        "previousPageButton": {
+          "title": "Previous page button",
+          "type": "object",
+          "required": ["icon", "label"],
+          "properties": {
+            "icon": {
+              "title": "Icon",
               "type": "object",
               "properties": {
-                "displayDescription": {
-                  "title": "Should display description?",
-                  "type": "boolean",
-                  "default": true
-                },
-                "title": {
-                  "title": "Description section title",
+                "icon": {
+                  "title": "Icon",
                   "type": "string",
-                  "default": "Description"
+                  "enumNames": ["ArrowLeft"],
+                  "enum": ["ArrowLeft"],
+                  "default": "ArrowLeft"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Left icon"
+                }
+              }
+            },
+            "label": {
+              "title": "Previous page button",
+              "type": "string",
+              "default": "Previous Page"
+            }
+          }
+        },
+        "loadMorePageButton": {
+          "title": "Load more products Button",
+          "type": "object",
+          "required": ["label"],
+          "properties": {
+            "label": {
+              "title": "Load more products label",
+              "type": "string",
+              "default": "Load more products"
+            }
+          }
+        },
+        "filter": {
+          "title": "Filter",
+          "type": "object",
+          "required": ["title", "mobileOnly"],
+          "properties": {
+            "title": {
+              "title": "Filter title",
+              "type": "string",
+              "default": "Filters"
+            },
+            "mobileOnly": {
+              "title": "Mobile Only",
+              "type": "object",
+              "required": [
+                "filterButton",
+                "clearButtonLabel",
+                "applyButtonLabel"
+              ],
+              "properties": {
+                "filterButton": {
+                  "title": "Show filter button",
+                  "type": "object",
+                  "required": ["label", "icon"],
+                  "properties": {
+                    "label": {
+                      "title": "Label",
+                      "type": "string",
+                      "default": "Filters"
+                    },
+                    "icon": {
+                      "title": "Icon",
+                      "type": "object",
+                      "required": ["icon", "alt"],
+                      "properties": {
+                        "icon": {
+                          "title": "Icon",
+                          "type": "string",
+                          "enumNames": ["FadersHorizontal"],
+                          "enum": ["FadersHorizontal"],
+                          "default": "FadersHorizontal"
+                        },
+                        "alt": {
+                          "title": "Alternative label",
+                          "type": "string",
+                          "default": "Open Filters"
+                        }
+                      }
+                    }
+                  }
+                },
+                "clearButtonLabel": {
+                  "title": "Clear button label",
+                  "type": "string",
+                  "default": "Clear All"
+                },
+                "applyButtonLabel": {
+                  "title": "Apply button label",
+                  "type": "string",
+                  "default": "Apply"
+                }
+              }
+            }
+          }
+        },
+        "productCard": {
+          "title": "Product Card Configuration",
+          "type": "object",
+          "properties": {
+            "showDiscountBadge": {
+              "title": "Show discount badge?",
+              "type": "boolean",
+              "default": true
+            },
+            "bordered": {
+              "title": "Cards should be bordered?",
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "CartSidebar",
+    "schema": {
+      "title": "Cart Sidebar",
+      "type": "object",
+      "description": "Cart Sidebar configuration",
+      "properties": {
+        "title": {
+          "title": "Title text",
+          "type": "string",
+          "default": "Your Cart"
+        },
+        "alert": {
+          "title": "Alert",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "required": ["icon", "alt"],
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": [
+                    "Bell",
+                    "BellRinging",
+                    "Checked",
+                    "Info",
+                    "Truck",
+                    "User"
+                  ],
+                  "enum": [
+                    "Bell",
+                    "BellRinging",
+                    "Checked",
+                    "Info",
+                    "Truck",
+                    "User"
+                  ],
+                  "default": "Truck"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Right icon"
+                }
+              }
+            },
+            "text": {
+              "type": "string",
+              "title": "Text",
+              "default": "Free shipping starts at $300"
+            }
+          }
+        },
+        "checkoutButton": {
+          "title": "Checkout button",
+          "type": "object",
+          "required": ["label", "loadingLabel", "icon"],
+          "properties": {
+            "label": {
+              "title": "Label",
+              "type": "string",
+              "default": "Checkout"
+            },
+            "loadingLabel": {
+              "title": "Loading label",
+              "type": "string",
+              "default": "Loading..."
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "required": ["icon", "alt"],
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["ArrowRight"],
+                  "enum": ["ArrowRight"],
+                  "default": "ArrowRight"
+                },
+                "alt": {
+                  "title": "Alternative label",
+                  "type": "string",
+                  "default": "Arrow Right icon"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "RegionBar",
+    "schema": {
+      "title": "Region Bar",
+      "type": "object",
+      "description": "Region Bar configuration",
+      "required": ["label"],
+      "properties": {
+        "icon": {
+          "title": "Location Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Map Pin"],
+              "enum": ["MapPin"],
+              "default": "MapPin"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Map Pin icon"
+            }
+          }
+        },
+        "label": {
+          "title": "Location label",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "editLabel": {
+          "title": "Location edit label",
+          "type": "string",
+          "default": "Edit"
+        },
+        "buttonIcon": {
+          "title": "Button Icon",
+          "type": "object",
+          "properties": {
+            "icon": {
+              "title": "Icon",
+              "type": "string",
+              "enumNames": ["Caret Right"],
+              "enum": ["CaretRight"],
+              "default": "CaretRight"
+            },
+            "alt": {
+              "title": "Alternative Label",
+              "type": "string",
+              "default": "Caret Right icon"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "name": "RegionModal",
+    "schema": {
+      "title": "Region Modal",
+      "type": "object",
+      "description": "Region Modal configuration",
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "default": "Set your location"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "default": "Prices, offers and availability may vary according to your location."
+        },
+        "closeButtonAriaLabel": {
+          "title": "Close modal aria-label",
+          "type": "string",
+          "default": "Close Region Modal"
+        },
+        "inputField": {
+          "title": "Input Field",
+          "type": "object",
+          "properties": {
+            "label": {
+              "title": "Input field label",
+              "type": "string",
+              "default": "Postal Code"
+            },
+            "errorMessage": {
+              "title": "Input field error message",
+              "type": "string",
+              "default": "You entered an invalid Postal Code"
+            }
+          }
+        },
+        "idkPostalCodeLink": {
+          "title": "I don't know my postal code link",
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "title": "Link Text",
+              "default": "I don't know my Postal Code"
+            },
+            "to": {
+              "type": "string",
+              "title": "Action link"
+            },
+            "icon": {
+              "title": "Icon",
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "title": "Icon",
+                  "type": "string",
+                  "enumNames": ["Arrow Square Out"],
+                  "enum": ["ArrowSquareOut"],
+                  "default": "ArrowSquareOut"
+                },
+                "alt": {
+                  "title": "Alternative Label",
+                  "type": "string",
+                  "default": "Arrow Square Out icon"
                 }
               }
             }

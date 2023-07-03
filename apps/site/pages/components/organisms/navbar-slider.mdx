@@ -17,17 +17,27 @@ import { getComponentPropsFrom } from 'site/components/utilities/propsSection'
 
 export const getStaticProps = () => {
   const navbarSliderPath = path.resolve(__filename)
-  const components = ['NavbarSlider.tsx']
-  const [navbarSliderProps] = getComponentPropsFrom(
-    navbarSliderPath,
-    components
-  )
+  const components = [
+    'NavbarSlider.tsx',
+    'NavbarSliderHeader.tsx',
+    'NavbarSliderContent.tsx',
+    'NavbarSliderFooter.tsx',
+  ]
+  const [
+    navbarSliderProps,
+    navbarSliderHeaderProps,
+    navbarSliderContentProps,
+    navbarSliderFooterProps,
+  ] = getComponentPropsFrom(navbarSliderPath, components)
   return {
     props: {
       // We add an `ssg` field to the page props,
       // which will be provided to the Nextra `useSSG` hook.
       ssg: {
         navbarSliderProps,
+        navbarSliderHeaderProps,
+        navbarSliderContentProps,
+        navbarSliderFooterProps,
       },
     },
   }
@@ -35,9 +45,17 @@ export const getStaticProps = () => {
 
 export const NavbarSliderPropsSection = ({ component }) => {
   // Get the data from SSG, and render it as a component.
-  const { navbarSliderProps } = useSSG()
+  const {
+    navbarSliderProps,
+    navbarSliderHeaderProps,
+    navbarSliderContentProps,
+    navbarSliderFooterProps,
+  } = useSSG()
   return {
     NavbarSlider: <PropsSection propsList={navbarSliderProps} />,
+    NavbarSliderHeader: <PropsSection propsList={navbarSliderHeaderProps} />,
+    NavbarSliderContent: <PropsSection propsList={navbarSliderContentProps} />,
+    NavbarSliderFooter: <PropsSection propsList={navbarSliderFooterProps} />,
   }[component]
 }
 
@@ -126,6 +144,18 @@ import '@faststore/ui/src/components/organisms/NavbarSlider/styles.scss'
 
 <NavbarSliderPropsSection component="NavbarSlider" />
 
+### Navbar Slider Header
+
+<NavbarSliderPropsSection component="NavbarSliderHeader" />
+
+### Navbar Slider Content
+
+<NavbarSliderPropsSection component="NavbarSliderContent" />
+
+### Navbar Slider Footer
+
+<NavbarSliderPropsSection component="NavbarSliderFooter" />
+
 ---
 
 ## Design Tokens
@@ -139,6 +169,7 @@ import '@faststore/ui/src/components/organisms/NavbarSlider/styles.scss'
 ### Header
 
 <TokenTable>
+  <TokenRow token="--fs-navbar-slider-header-height" value="5rem" />
   <TokenRow
     token="--fs-navbar-slider-header-padding-bottom"
     value="var(--fs-spacing-2)"
@@ -165,7 +196,6 @@ import '@faststore/ui/src/components/organisms/NavbarSlider/styles.scss'
 ### Logo
 
 <TokenTable>
-  <TokenRow token="--fs-navbar-slider-logo-height" value="2.375rem" />
   <TokenRow token="--fs-navbar-slider-logo-padding" value="0" />
   <TokenRow
     token="--fs-navbar-slider-logo-margin-right"

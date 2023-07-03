@@ -35,10 +35,10 @@ function Incentives({
       data-fs-incentives-colored={colored}
       data-fs-incentives-variant={variant}
     >
-      <UIList className="layout__content">
+      <UIList data-fs-content="incentives">
         {incentives.map((incentive, index) => (
-          <li key={String(index)}>
-            <UIIncentive>
+          <li role="listitem" key={String(index)}>
+            <UIIncentive tabIndex={0}>
               <UIIcon
                 data-fs-incentive-icon
                 aria-label={incentive.alt}

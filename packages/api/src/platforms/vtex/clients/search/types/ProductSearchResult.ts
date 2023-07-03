@@ -14,6 +14,7 @@ export interface ProductSearchResult {
   fuzzy: string
   redirect?: string
   correction?: Correction
+  redirect?: string
 }
 
 interface Correction {

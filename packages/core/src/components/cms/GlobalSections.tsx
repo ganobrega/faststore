@@ -1,17 +1,19 @@
-import { PropsWithChildren, useMemo } from 'react'
-
 import { Locator, Section } from '@vtex/client-cms'
 import type { ComponentType } from 'react'
+import { PropsWithChildren, lazy } from 'react'
 import CUSTOM_COMPONENTS from 'src/customizations/components'
 import { PageContentType, getPage } from 'src/server/cms'
 
-import RegionBar from 'src/components/common/RegionBar'
 import Toast from 'src/components/common/Toast'
-import Navbar from 'src/components/navigation/Navbar'
 import RenderSections from './RenderSections'
 
+import Alert from 'src/components/sections/Alert'
 import Footer from 'src/components/sections/Footer'
-import Alert from 'src/components/sections/Alert/Alert'
+import Navbar from 'src/components/sections/Navbar'
+import RegionBar from 'src/components/sections/RegionBar'
+
+const RegionModal = lazy(() => import('src/components/region/RegionModal'))
+const CartSidebar = lazy(() => import('src/components/cart/CartSidebar'))
 
 export const GLOBAL_SECTIONS_CONTENT_TYPE = 'globalSections'
 
@@ -22,46 +24,24 @@ export type GlobalSectionsData = {
 /* A list of components that can be used in the CMS. */
 const COMPONENTS: Record<string, ComponentType<any>> = {
   Alert,
+  Navbar,
+  RegionBar,
+  RegionModal,
+  CartSidebar,
   Footer,
   ...CUSTOM_COMPONENTS,
 }
 
-const useDividedSections = (sections: Section[]) => {
-  return useMemo(() => {
-    const indexChildren = sections.findIndex(({ name }) => name === 'Children')
-    const hasChildren = indexChildren > -1
-
-    return {
-      hasChildren,
-      firstSections: hasChildren ? sections.slice(0, indexChildren) : sections,
-      ...(hasChildren && { lastSections: sections.slice(indexChildren + 1) }),
-    }
-  }, [sections])
-}
-
 function GlobalSections({
   children,
-  sections,
+  ...otherProps
 }: PropsWithChildren<GlobalSectionsData>) {
-  const { hasChildren, firstSections, lastSections } =
-    useDividedSections(sections)
-
   return (
-    <>
-      <RenderSections sections={firstSections} components={COMPONENTS} />
-      <Navbar />
-
+    <RenderSections components={COMPONENTS} {...otherProps}>
       <Toast />
 
-      <main>
-        <RegionBar className="display-mobile" />
-        {children}
-      </main>
-
-      {hasChildren && (
-        <RenderSections sections={lastSections} components={COMPONENTS} />
-      )}
-    </>
+      <main>{children}</main>
+    </RenderSections>
   )
 }
 
@@ -71,9 +51,8 @@ export const getGlobalSectionsData = async (
   previewData: Locator
 ): Promise<GlobalSectionsData> => {
   const { sections } = await getPage<PageContentType>({
-    ...(previewData?.contentType === GLOBAL_SECTIONS_CONTENT_TYPE
-      ? previewData
-      : { filters: { 'settings.seo.slug': '/' } }),
+    ...(previewData?.contentType === GLOBAL_SECTIONS_CONTENT_TYPE &&
+      previewData),
     contentType: GLOBAL_SECTIONS_CONTENT_TYPE,
   })
 
